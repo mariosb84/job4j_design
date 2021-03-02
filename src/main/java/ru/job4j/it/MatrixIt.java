@@ -49,11 +49,13 @@ public class MatrixIt implements Iterator<Integer> {
         };
         MatrixIt it = new MatrixIt(in);
         System.out.println(it.next());
-        System.out.println(it.data.length);
+        System.out.println(it.next());
+        System.out.println(it.next());
+        /*System.out.println(it.data.length);
         System.out.println(it.data[1].length);
         System.out.println(Arrays.toString(it.data[0]));
         System.out.println((it.data[1][0]));
-        System.out.println(Arrays.toString(it.data[1]));
+        System.out.println(Arrays.toString(it.data[1]));*/
     }
 
 }

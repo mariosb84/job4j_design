@@ -16,7 +16,7 @@ public class EvenIt implements Iterator<Integer> {
     public boolean hasNext() {
         boolean res = false;
         for (int i : numbers) {
-            if (numbers[i] % 2 == 0) {
+            if (numbers[i] % 2 == 0 && i >= column) {
                 res = true;
                 column = numbers[i];
                 break;
@@ -34,10 +34,8 @@ public class EvenIt implements Iterator<Integer> {
     }
 
     public static void main(String[] args) {
-        int[] test = {1, 1, 3, 4, 5, 6, 7};
+        int[] test = {1, 2, 3, 4, 5, 6, 7};
         EvenIt evenIt = new EvenIt(test);
-        System.out.println(evenIt.next());
-        System.out.println(evenIt.next());
         System.out.println(evenIt.next());
         System.out.println(evenIt.next());
         System.out.println(evenIt.next());

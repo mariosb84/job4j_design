@@ -20,6 +20,10 @@ public class MatrixIt implements Iterator<Integer> {
             if (i.length != 0) {
                 k++;
             }
+            if (column >= data[row].length) {
+                row++;
+                column = 0;
+            }
         }
         return k > 0;
     }
@@ -29,16 +33,7 @@ public class MatrixIt implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        for (int[] ignored : data) {
-                if (data[row].length == 0) {
-                  row++;
-                }
-            if (column >= data[row].length) {
-                row++;
-                column = 0;
-            }
-        }
-        return data[row][column++];
+            return data[row][column++];
     }
 
 
@@ -48,9 +43,19 @@ public class MatrixIt implements Iterator<Integer> {
                 {}, {2, 3, 4, 5}
         };
         MatrixIt it = new MatrixIt(in);
+        System.out.println(it.hasNext());
+        System.out.println(it.row);
         System.out.println(it.next());
+        System.out.println(it.hasNext());
+        System.out.println(it.row);
         System.out.println(it.next());
+        System.out.println(it.hasNext());
+        System.out.println(it.row);
         System.out.println(it.next());
+        System.out.println(it.hasNext());
+        System.out.println(it.row);
+        System.out.println(it.next());
+        //System.out.println(it.next());
         /*System.out.println(it.data.length);
         System.out.println(it.data[1].length);
         System.out.println(Arrays.toString(it.data[0]));

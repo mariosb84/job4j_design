@@ -15,7 +15,7 @@ public class MatrixIt implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        int k = 0;
+       /* int k = 0;
         for (int[] i : data) {
             if (i.length != 0) {
                 k++;
@@ -25,7 +25,12 @@ public class MatrixIt implements Iterator<Integer> {
                 column = 0;
             }
         }
-        return k > 0;
+        return k > 0;*/
+        while (row < data.length && column >= data[row].length) {
+            row++;
+            column = 0;
+        }
+        return row < data.length;
     }
 
     @Override

@@ -12,7 +12,7 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        while (data.hasNext()) {
+        while (data.hasNext() && !cursor.hasNext()) {
             cursor = data.next();
         }
         return cursor.hasNext();
@@ -32,12 +32,13 @@ public class FlatMap<T> implements Iterator<T> {
                 List.of(4, 5, 6).iterator(),
                 List.of(7, 8, 9).iterator(),
                 List.of(10, 11, 12).iterator(),
-                List.of(13, 14, 15, 16, 17, 18, 19, 20).iterator()
+                List.of(13, 14, 15).iterator()
         ).iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         while (flat.hasNext()) {
             System.out.println(flat.next());
         }
+
 
     }
 }

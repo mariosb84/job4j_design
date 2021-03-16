@@ -1,57 +1,66 @@
 package ru.job4j.generics;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.List;
+import java.util.Objects;
 
-public class SimpleArray<T> implements Iterator<T> {
-    private T model;
-    private final T[] array;
-    //private Iterator<T> cursor = Collections.emptyIterator();
+public class SimpleArray {
+    private final int[] array;
     private  int index = 0;
 
-    public SimpleArray(T[] array) {
+    public SimpleArray(int[] array) {
         this.array = array;
     }
 
-    public void add(T model) {
+    public void add(int model) {
+        Objects.checkIndex(index, array.length);
     array[index] = model;
     index++;
     }
-    public T set(int index, T model) {
-        T result = null;
-        for (T obj : array) {
-            if (obj != null && index == this.index) {
-                result = model;
+    public boolean set(int index, int model) {
+        Objects.checkIndex(index, array.length);
+        boolean result = false;
+       if (get(index) != -1) {
+           array[index] = model;
+           result = true;
+       }
+       return result;
+    }
+    public boolean remove(int index) {
+        Objects.checkIndex(index, array.length);
+        boolean result = false;
+        if (get(index) != -1) {
+            System.arraycopy(array, index + 1, array, index, this.index - index);
+            System.arraycopy(array, index + 1, array, index, this.index - index);
+            //array[this.index - 1] = null;
+            this.index--;
+            result = true;
+        }
+        return result;
+    }
+    public int get(int index) {
+        Objects.checkIndex(index, array.length);
+        int result = -1;
+        for (int obj : array) {
+            if (obj != -1 && index == this.index) {
+                result = obj;
                 break;
             }
-            this.index++;
         }
         return  result;
     }
-    public T[] remove(int index) {
-        return 0;
-    }
-    public int get(int index) {
-        return  0;
-    }
-    @Override
-    public boolean hasNext() {
-        while (index < array.length) {
-            index++;
-        }
-        return index < array.length;
-    }
-
-    @Override
-    public T next() {
-        if (!hasNext()) {
-            throw new NoSuchElementException();
-        }
-        return array[index++];
-    }
 
     public static void main(String[] args) {
-
+        SimpleArray simpleArray = new SimpleArray(new int[3]);
+        simpleArray.add(5);
+        simpleArray.add(6);
+        simpleArray.add(7);
+        System.out.println(simpleArray.index);
+        System.out.println(simpleArray.get(0));
+        System.out.println(simpleArray.get(1));
+        System.out.println(simpleArray.get(2));
     }
+
+
 }

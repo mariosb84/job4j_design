@@ -14,15 +14,13 @@ public class SimpleArray {
     }
 
     public void add(int model) {
-        Objects.checkIndex(index, array.length);
-    array[index] = model;
+    array[Objects.checkIndex(index, array.length)] = model;
     index++;
     }
     public boolean set(int index, int model) {
-        Objects.checkIndex(index, array.length);
         boolean result = false;
        if (get(index) != -1) {
-           array[index] = model;
+           array[Objects.checkIndex(index, array.length)] = model;
            result = true;
        }
        return result;
@@ -32,7 +30,7 @@ public class SimpleArray {
         boolean result = false;
         if (get(index) != -1) {
             System.arraycopy(array, index + 1, array, index, this.index - index);
-            System.arraycopy(array, index + 1, array, index, this.index - index);
+           // System.arraycopy(array, index + 1, array, index, this.index - index);
             //array[this.index - 1] = null;
             this.index--;
             result = true;
@@ -40,14 +38,13 @@ public class SimpleArray {
         return result;
     }
     public int get(int index) {
-        Objects.checkIndex(index, array.length);
         int result = -1;
-        for (int obj : array) {
-            if (obj != -1 && index == this.index) {
-                result = obj;
-                break;
-            }
-        }
+           for (int obj : array) {
+               obj = array[Objects.checkIndex(index, array.length)];
+                   result = obj;
+                   break;
+           }
+
         return  result;
     }
 
@@ -57,9 +54,13 @@ public class SimpleArray {
         simpleArray.add(6);
         simpleArray.add(7);
         System.out.println(simpleArray.index);
+        System.out.println();
         System.out.println(simpleArray.get(0));
         System.out.println(simpleArray.get(1));
         System.out.println(simpleArray.get(2));
+        System.out.println();
+        System.out.println(simpleArray.set(0, 90));
+        System.out.println(simpleArray.get(0));
     }
 
 

@@ -26,13 +26,16 @@ public class SimpleArray {
        return result;
     }
     public boolean remove(int index) {
-        Objects.checkIndex(index, array.length);
+        //index = Objects.checkIndex(index, array.length);
         boolean result = false;
         if (get(index) != -1) {
-            System.arraycopy(array, index + 1, array, index, this.index - index);
-           // System.arraycopy(array, index + 1, array, index, this.index - index);
-            //array[this.index - 1] = null;
-            this.index--;
+            // System.arraycopy(items,index + 1, items, index, size - index);
+            //items[size - 1] = null;
+            // items.set(size - 1, null);
+            // size--;
+            System.arraycopy(array, index + 1, array, index, array.length - 1);
+           // array[array.length - 1] = Integer.parseInt(null);
+            //this.index--;
             result = true;
         }
         return result;
@@ -61,6 +64,12 @@ public class SimpleArray {
         System.out.println();
         System.out.println(simpleArray.set(0, 90));
         System.out.println(simpleArray.get(0));
+        System.out.println();
+        System.out.println(Arrays.toString(simpleArray.array));
+        System.out.println(simpleArray.index);
+        System.out.println(simpleArray.remove(0));
+        System.out.println(Arrays.toString(simpleArray.array));
+
     }
 
 

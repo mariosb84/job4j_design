@@ -41,21 +41,19 @@ public class SimpleArray<T> implements Iterator {
     }
     public  T get(int index) {
         T result = null;
-       // List<T>arrayAsList = new Arrays.asList<T>(array);
-       // Iterator iterator = ((java.util.List) arrayAsList).iterator();
-        Iterator<T> iterator = array.iterator();                                                 // не работает?????
+       /* Iterator<T> iterator = array.iterator();                                                 // не работает?????
         while (iterator.hasNext()) {
             T obj = iterator.next();
             if (obj.equals(array[Objects.checkIndex(index, array.length)])) {
             result = obj;
             break;
             }
-        }
-              /* for (T obj : array) {
+        }*/
+               for (T obj : array) {
                obj = array[Objects.checkIndex(index, array.length)];
                    result = obj;
                    break;
-           }*/
+           }
 
         return  result;
     }

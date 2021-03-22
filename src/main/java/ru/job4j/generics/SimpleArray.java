@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public class SimpleArray<T> implements Iterator {
     private final T[] array;
-    private final List array2 = new List();
     private  int index = 0;
     private  int position = 0;
 
@@ -17,7 +16,7 @@ public class SimpleArray<T> implements Iterator {
     }
 
     public void add(T model) {
-    array[Objects.checkIndex(index, array.length)] =  model;
+    array[Objects.checkIndex(index, array.length)] = model;
     index++;
     }
     public boolean set(int index, T model) {
@@ -86,6 +85,10 @@ public class SimpleArray<T> implements Iterator {
         System.out.println();
         System.out.println(Arrays.toString(simpleArray.array));
         System.out.println(simpleArray.index);
+        System.out.println(simpleArray.remove(0));
+        System.out.println(Arrays.toString(simpleArray.array));
+        System.out.println(simpleArray.remove(0));
+        System.out.println(Arrays.toString(simpleArray.array));
         System.out.println(simpleArray.remove(0));
         System.out.println(Arrays.toString(simpleArray.array));
 

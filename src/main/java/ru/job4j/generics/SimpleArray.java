@@ -8,8 +8,7 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
     private final T[] array;
     private  int index = 0;
-    private  int position = 0;
-
+    private int position = 0;
     public SimpleArray(T[] array) {
         this.array = array;
     }
@@ -24,8 +23,9 @@ public class SimpleArray<T> implements Iterable<T> {
     }
     public boolean remove(int index) {
             System.arraycopy(array, (Objects.checkIndex(index, this.index)) + 1,
-                    array, (Objects.checkIndex(index, this.index)), array.length - 1);
-            array[array.length - 1] = null;
+                    array, (Objects.checkIndex(index, this.index)), this.index - index - 1);
+            array[this.index - 1] = null;
+            this.index--;
         return true;
     }
     public  T get(int index) {
@@ -36,7 +36,7 @@ public class SimpleArray<T> implements Iterable<T> {
         return new Iterator<T>() {
             @Override
             public boolean hasNext() {
-                return position < array.length;
+                return position < index;
             }
             @Override
             public T next() {

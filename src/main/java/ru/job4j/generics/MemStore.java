@@ -43,20 +43,16 @@ public final class MemStore<T extends Base> implements Store<T> {
     }
 
     public static void main(String[] args) {
-        /*Base base = new Base() {
-            @Override
-            public String getId() {
-                return super.getId();
-            }
-        }*/
         MemStore<? extends Base> memStore = new MemStore<>();
-       // MemStore memStore = new MemStore<>();
-        //memStore.add();                                             ???????????????????????
+        memStore.add(null);                                         // wildcards extends - only read
+        memStore.add(null);
+        memStore.add(null);
+        memStore.add(null);
         System.out.println(memStore.findById("1"));
         System.out.println(memStore.mem);
-       // memStore.replace("1", "2");                               ?????????????????????????
-        memStore.delete("1");
-        System.out.println(memStore.findById("1"));
+        //memStore.replace("0", null);                       // wildcards extends - only read
+       // memStore.delete("0");
+       // System.out.println(memStore.findById("0"));
         System.out.println(memStore.mem);
     }
 }

@@ -1,7 +1,9 @@
 package ru.job4j.generics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public final class MemStore<T extends Base> implements Store<T> {
 
@@ -11,7 +13,6 @@ public final class MemStore<T extends Base> implements Store<T> {
     public void add(T model) {
         mem.add(model);
     }
-
     @Override
     public boolean replace(String id, T model) {
         boolean result = false;
@@ -41,18 +42,38 @@ public final class MemStore<T extends Base> implements Store<T> {
         }
         return null;
     }
-
     public static void main(String[] args) {
-        MemStore<? extends Base> memStore = new MemStore<>();
-        memStore.add(null);                                         // wildcards extends - only read
-        memStore.add(null);
-        memStore.add(null);
-        memStore.add(null);
-        System.out.println(memStore.findById("1"));
-        System.out.println(memStore.mem);
-        //memStore.replace("0", null);                       // wildcards extends - only read
-       // memStore.delete("0");
-       // System.out.println(memStore.findById("0"));
-        System.out.println(memStore.mem);
+        MemStore memStore = new MemStore<>();
+        memStore.add(new Base("1") {
+            @Override
+            public String getId() {
+                return super.getId();
+            }
+        });
+        memStore.add(new Base("2") {
+            @Override
+            public String getId() {
+                return super.getId();
+            }
+        });
+        memStore.add(new Base("3") {
+            @Override
+            public String getId() {
+                return super.getId();
+            }
+        });
+        System.out.println(Objects.requireNonNull(memStore.findById("0")).getId());
+        memStore.replace("0", new Base("4") {
+            @Override
+            public String getId() {
+                return super.getId();
+            }
+        });
+        System.out.println(Objects.requireNonNull(memStore.findById("0")).getId());
+        memStore.delete("0");
+        System.out.println(Objects.requireNonNull(memStore.findById("0")).getId());
+
     }
+
+
 }

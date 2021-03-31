@@ -46,15 +46,16 @@ public class RoleStore implements Store<Role> {
                 return super.getId();
             }
         });
-        System.out.println(Objects.requireNonNull(roleStore.findById("0")).getId());
-        roleStore.replace("0", new Role("4") {
+        System.out.println((roleStore.findById("1")).getId());
+        roleStore.replace("1", new Role("4") {
             @Override
             public String getId() {
                 return super.getId();
             }
         });
-        System.out.println(Objects.requireNonNull(roleStore.findById("0")).getId());
-        roleStore.delete("0");
-        System.out.println(Objects.requireNonNull(roleStore.findById("0")).getId());
+        System.out.println((roleStore.findById("4")).getId());
+        roleStore.delete("4");
+        System.out.println((roleStore.findById("2")).getId());
+        System.out.println((roleStore.findById("3")).getId());
     }
 }

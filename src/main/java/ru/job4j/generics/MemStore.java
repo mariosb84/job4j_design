@@ -17,8 +17,7 @@ public final class MemStore<T extends Base> implements Store<T> {
     public boolean replace(String id, T model) {
         boolean result = false;
         if (findById(id) != null) {
-            //mem.set(Integer.parseInt(id), model);
-            mem.set(getId(id), model);
+            mem.set(indexOf(id), model);
             result = true;
         }
         return result;
@@ -28,8 +27,7 @@ public final class MemStore<T extends Base> implements Store<T> {
     public boolean delete(String id) {
         boolean result = false;
         if (findById(id) != null) {
-            //mem.remove(Integer.parseInt(id));
-            mem.remove(getId(id));
+            mem.remove(indexOf(id));
             result = true;
         }
         return result;
@@ -37,16 +35,22 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        for (T t : mem) {
-            //if (t.equals(mem.get(Integer.parseInt(id)))) {
-            if (t.equals(mem.get(getId(id)))) {
-                return t;
+        T t = null;
+        int i = indexOf(id);
+       if (i != -1) {
+          t = mem.get(i);
+       }
+        return t;
+    }
+    private int indexOf(String id) {
+        int rsl = -1;
+        for (int index = 0; index < mem.size(); index++) {
+            if (mem.get(index).getId().equals(id)) {
+                rsl = index;
+                break;
             }
         }
-        return null;
-    }
-    private int getId(String id) {
-      return Integer.parseInt(id) > 0 ? Integer.parseInt(id) - 1 : 0;
+        return rsl;
     }
     public static void main(String[] args) {
         MemStore memStore = new MemStore<>();
@@ -68,16 +72,20 @@ public final class MemStore<T extends Base> implements Store<T> {
                 return super.getId();
             }
         });
-        System.out.println(Objects.requireNonNull(memStore.findById("0")).getId());
-        memStore.replace("0", new Base("4") {
+        System.out.println((memStore.indexOf("1")));
+        memStore.replace("1", new Base("4") {
             @Override
             public String getId() {
                 return super.getId();
             }
         });
-        System.out.println(Objects.requireNonNull(memStore.findById("0")).getId());
-        memStore.delete("0");
-        System.out.println(Objects.requireNonNull(memStore.findById("0")).getId());
+        System.out.println((memStore.indexOf("1")));
+        System.out.println((memStore.indexOf("4")));
+        memStore.delete("4");
+        System.out.println((memStore.indexOf("4")));
+        System.out.println((memStore.indexOf("2")));
+        System.out.println((memStore.indexOf("3")));
+
 
     }
 

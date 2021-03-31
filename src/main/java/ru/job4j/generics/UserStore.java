@@ -46,15 +46,17 @@ public class UserStore implements Store<User>  {
                 return super.getId();
             }
         });
-        System.out.println(Objects.requireNonNull(userStore.findById("0")).getId());
-        userStore.replace("0", new User("4") {
+        System.out.println((userStore.findById("1").getId()));
+        userStore.replace("1", new User("4") {
             @Override
             public String getId() {
                 return super.getId();
             }
         });
-        System.out.println(Objects.requireNonNull(userStore.findById("0")).getId());
-        userStore.delete("0");
-        System.out.println(Objects.requireNonNull(userStore.findById("0")).getId());
+        System.out.println((userStore.findById("4").getId()));
+        userStore.delete("4");
+        System.out.println((userStore.findById("2").getId()));
+        System.out.println((userStore.findById("3").getId()));
+
     }
 }

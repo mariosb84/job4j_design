@@ -1,23 +1,21 @@
 package ru.job4j.collection;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
     private  int index = 0;
-    private  int i = 3;
+    private  int capacity = 10;
     private  int modCount = 0;
-    private Object[] container = new Object[i];
+    private Object[] container = new Object[capacity];
 
     public T get(int index) {
-        return (T) container[Objects.checkIndex(index, this.index)];                    // ???????????????
+        return (T) container[Objects.checkIndex(index, this.index)];
     }
     public void add(T model) {
-        if (index >= i) {
-            container = new Object[i * 2];
-            i *= 2;
+        if (index >= capacity) {
+            //container = new Object[capacity * 2];
+            container = Arrays.copyOf(container, capacity * 2);
+            capacity *= 2;
         }
         container[index] = model;
         index++;
@@ -40,7 +38,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return (T) container[position++];                                     // ???????????????
+                return (T) container[position++];
             }
         };
     }
@@ -67,5 +65,15 @@ public class SimpleArray<T> implements Iterable<T> {
         System.out.println(simpleArray.get(8));
         simpleArray.add(10);
         System.out.println(simpleArray.get(9));
+        simpleArray.add(11);
+        System.out.println(simpleArray.get(10));
+        simpleArray.add(12);
+        System.out.println(simpleArray.get(11));
+        simpleArray.add(13);
+        System.out.println(simpleArray.get(12));
+        simpleArray.add(14);
+        System.out.println(simpleArray.get(13));
+        simpleArray.add(15);
+        System.out.println(simpleArray.get(14));
     }
 }

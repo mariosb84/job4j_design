@@ -7,7 +7,6 @@ public class SimpleArray<T> implements Iterable<T> {
     private  int capacity = 10;
     private  int modCount = 0;
     private Object[] container = new Object[capacity];
-
     public T get(int index) {
         return (T) container[Objects.checkIndex(index, this.index)];
     }

@@ -1,34 +1,78 @@
 package ru.job4j.collection;
 
-import org.w3c.dom.Node;
-
 import java.util.*;
 
 public class SimpleLinkedList<E> implements List<E> {
     private  int capacity = 10;
     private  int modCount = 0;
-    private transient int size = 0;
-    private transient Node first;
-    private transient Node last;
+    private  int size = 0;
+    private  Node<E> fstNode;
+    private  Node<E> lstNode;
     private Node[] node = new Node[capacity];
+
+    public SimpleLinkedList() {
+        lstNode = new Node<>(null, null, null);
+        fstNode = new Node<>(null, null, lstNode);
+    }
+
+    private static class Node<E> {
+        private E currentElement;
+        private Node<E> nextElement;
+        private Node<E> prevElement;
+
+        private Node(E element, Node<E> prev, Node<E> next) {
+            this.currentElement = element;
+            this.nextElement = next;
+            this.prevElement = prev;
+        }
+
+        public E getCurrentElement() {
+            return currentElement;
+        }
+
+        public void setCurrentElement(E currentElement) {
+            this.currentElement = currentElement;
+        }
+
+        public Node<E> getNextElement() {
+            return nextElement;
+        }
+
+        public void setNextElement(Node<E> nextElement) {
+            this.nextElement = nextElement;
+        }
+
+        public Node<E> getPrevElement() {
+            return prevElement;
+        }
+        public void setPrevElement(Node<E> prevElement) {
+            this.prevElement = prevElement;
+        }
+    }
     @Override
     public void add(E value) {
         if (size >= capacity) {
             node = Arrays.copyOf(node, capacity * 2);
             capacity *= 2;
         }
-        //node[size] = (Node) value;
-       // node[size] = value;
-       // first = (Node) value;
-       //last = (Node) value;
-       // new Node(value);
+        Node<E> prev = lstNode;
+        prev.setCurrentElement(value);
+        lstNode = new Node<>(null, prev, null);
+        prev.setNextElement(lstNode);
         size++;
         modCount++;
     }
 
     @Override
     public E get(int index) {
-        return (E) node[Objects.checkIndex(index, this.size)];
+        Node<E> target = fstNode.getNextElement();
+        for (int i = 0; i < Objects.checkIndex(index, this.size); i++) {
+         target = getNextElement(target);
+        }
+        return target.getCurrentElement();
+    }
+    private Node<E> getNextElement(Node<E> current) {
+        return current.getNextElement();
     }
 
     @Override
@@ -50,7 +94,7 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return (E) node[position++];
+                return get(position++);
             }
         };
     }

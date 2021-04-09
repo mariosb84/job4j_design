@@ -3,12 +3,10 @@ package ru.job4j.collection;
 import java.util.*;
 
 public class SimpleLinkedList<E> implements List<E> {
-    private  int capacity = 10;
     private  int modCount = 0;
     private  int size = 0;
     private  Node<E> fstNode;
     private  Node<E> lstNode;
-    private Node[] node = new Node[capacity];
 
     public SimpleLinkedList() {
         lstNode = new Node<>(null, null, null);
@@ -51,10 +49,6 @@ public class SimpleLinkedList<E> implements List<E> {
     }
     @Override
     public void add(E value) {
-        if (size >= capacity) {
-            node = Arrays.copyOf(node, capacity * 2);
-            capacity *= 2;
-        }
         Node<E> prev = lstNode;
         prev.setCurrentElement(value);
         lstNode = new Node<>(null, prev, null);
@@ -80,6 +74,7 @@ public class SimpleLinkedList<E> implements List<E> {
         return new Iterator<>() {
             private int position = 0;
             private final int expectedModCount = modCount;
+            Node<E> current = fstNode;
 
             @Override
             public boolean hasNext() {
@@ -94,7 +89,8 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return get(position++);
+                //return get(position++);
+                return  current.getNextElement().getCurrentElement();
             }
         };
     }
@@ -130,5 +126,10 @@ public class SimpleLinkedList<E> implements List<E> {
         System.out.println(simpleLinkedList.get(13));
         simpleLinkedList.add(15);
         System.out.println(simpleLinkedList.get(14));
+        System.out.println();
+        Iterator<Integer> first = simpleLinkedList.iterator();
+        System.out.println(first.next());
+        System.out.println(first.next());
+        System.out.println(first.next());
     }
 }

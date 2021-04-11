@@ -78,7 +78,8 @@ public class SimpleLinkedList<E> implements List<E> {
 
             @Override
             public boolean hasNext() {
-                return position < size;
+                //return current != lstNode;
+                return  position < size;
             }
 
             @Override
@@ -89,8 +90,9 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                //return get(position++);
-                return  current.getNextElement().getCurrentElement();
+                current = current.getNextElement();
+                position++;
+                return current.getCurrentElement();
             }
         };
     }

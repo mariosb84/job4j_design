@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
+    private Node<T> last;
 
     public void add(T value) {
         Node<T> node = new Node<T>(value, null);
@@ -18,6 +19,9 @@ public class ForwardLinked<T> implements Iterable<T> {
         }
         tail.next = node;
     }
+    public void addFirst(T value) {
+            head.value = value;
+    }
     public T deleteFirst() {
         T valueRem;
         if (head == null) {
@@ -27,6 +31,19 @@ public class ForwardLinked<T> implements Iterable<T> {
             head = head.next;
         return valueRem;
     }
+   /* public T deleteLast() {
+        T valueRem;
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        Node<T> tail = head;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+        valueRem = tail.value;
+        tail = null;                    // ????
+        return valueRem;
+    }*/
 
     @Override
     public Iterator<T> iterator() {
@@ -34,7 +51,7 @@ public class ForwardLinked<T> implements Iterable<T> {
             Node<T> node = head;
 
             @Override
-            public boolean hasNext() {
+            public boolean hasNext()   {
                 return node != null;
             }
 
@@ -62,15 +79,20 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     public static void main(String[] args) {
         ForwardLinked<Integer> linked = new ForwardLinked<>();
-        linked.add(1);
+       /* linked.add(1);
         linked.add(2);
         linked.add(3);
-        linked.add(4);
+        linked.add(4);*/
+        linked.addFirst(5);
+        linked.addFirst(4);
+        linked.addFirst(3);
         System.out.println(linked.deleteFirst());
         System.out.println(linked.deleteFirst());
+        System.out.println(linked.deleteFirst());
+        /*System.out.println(linked.deleteFirst());
         Iterator<Integer> it = linked.iterator();
         System.out.println(it.next());
         System.out.println(it.next());
-        System.out.println(it.next());
+        System.out.println(it.next());*/
     }
 }

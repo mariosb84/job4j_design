@@ -19,11 +19,10 @@ public class ForwardLinked<T> implements Iterable<T> {
         tail.next = node;
     }
     public void addFirst(T value) {
-        Node<T> node = new Node<T>(value, null);
         if (head == null) {
-            head = node;
+            head = new Node<T>(value, null);
         }
-            head.next = node;
+        head.value = value;
     }
     public T deleteFirst() {
         T valueRem;
@@ -34,19 +33,6 @@ public class ForwardLinked<T> implements Iterable<T> {
             head = head.next;
         return valueRem;
     }
-   /* public T deleteLast() {
-        T valueRem;
-        if (head == null) {
-            throw new NoSuchElementException();
-        }
-        Node<T> tail = head;
-        while (tail.next != null) {
-            tail = tail.next;
-        }
-        valueRem = tail.value;
-        tail = null;                    // ????
-        return valueRem;
-    }*/
 
     @Override
     public Iterator<T> iterator() {
@@ -82,13 +68,14 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     public static void main(String[] args) {
         ForwardLinked<Integer> linked = new ForwardLinked<>();
-       /* linked.add(1);
-        linked.add(2);
-        linked.add(3);
-        linked.add(4);*/
+        //linked.add(5);
+       // linked.add(4);
+       // linked.add(3);
         linked.addFirst(5);
         linked.addFirst(4);
         linked.addFirst(3);
+        //System.out.println(linked.head.value);
+        //System.out.println(linked.head.next.value);
         System.out.println(linked.deleteFirst());
         System.out.println(linked.deleteFirst());
         System.out.println(linked.deleteFirst());

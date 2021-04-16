@@ -18,16 +18,15 @@ public class ForwardLinked<T> implements Iterable<T> {
         }
         tail.next = node;
     }
-    public void addFirst(T value) {
+    /*public void addFirst(T value) {
+        Node<T> node = new Node<T>(value, null);
         if (head == null) {
-            head = new Node<T>(value, null);
+            head = node;
             return;
         }
         head.value = value;
-        if (head.next != null) {
-            head.next.value = head.value;
-        }
-    }
+        head.next.value = value;
+    }*/
     public T deleteFirst() {
         T valueRem;
         if (head == null) {
@@ -35,6 +34,19 @@ public class ForwardLinked<T> implements Iterable<T> {
         }
         valueRem = head.value;
             head = head.next;
+        return valueRem;
+    }
+    public T deleteLast() {
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        T valueRem = head.value;
+        Node<T> tail = head;
+        while (tail.next != null) {
+            tail = tail.next;
+            valueRem = tail.value;
+        }
+        tail.next = null;
         return valueRem;
     }
 
@@ -72,22 +84,15 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     public static void main(String[] args) {
         ForwardLinked<Integer> linked = new ForwardLinked<>();
-        //linked.add(5);
-       // linked.add(4);
-       // linked.add(3);
-        linked.addFirst(5);
-        linked.addFirst(4);
-        linked.addFirst(3);
-        //System.out.println(linked.head.value);
-        //System.out.println(linked.head.next.value);
-        //System.out.println(linked.deleteFirst());
-        //System.out.println(linked.deleteFirst());
-        //System.out.println(linked.deleteFirst());
-        //System.out.println(linked.deleteFirst());
-        //System.out.println(linked.deleteFirst());
+        linked.add(3);
+        linked.add(4);
+        linked.add(5);
+        System.out.println(linked.deleteLast());
+        System.out.println(linked.deleteLast());
+        System.out.println(linked.deleteLast());
         Iterator<Integer> it = linked.iterator();
-        System.out.println(it.next());
-        System.out.println(it.next());
+        //System.out.println(it.next());
+        //System.out.println(it.next());
        // System.out.println(it.next());
     }
 }

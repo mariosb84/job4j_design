@@ -10,6 +10,9 @@ public class SimpleStack<T> {
     public void push(T value) {
       linked.addFirst(value);
     }
+    public boolean isEmpty() {
+        return !linked.iterator().hasNext();
+    }
 
     public static void main(String[] args) {
         SimpleStack<Integer> simpleStack = new SimpleStack<>();
@@ -19,6 +22,7 @@ public class SimpleStack<T> {
         System.out.println(simpleStack.pop());
         System.out.println(simpleStack.pop());
         System.out.println(simpleStack.pop());
+        System.out.println(simpleStack.isEmpty());
         System.out.println(simpleStack.linked);
     }
 }

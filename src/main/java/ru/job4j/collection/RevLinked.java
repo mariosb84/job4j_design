@@ -22,13 +22,17 @@ public class RevLinked<T> implements Iterable<T> {
     public boolean revert() {
         //TODO impl reverts of linked list.
         boolean result = false;
-        Node<T> tail = head;
-        T valueRev;
-            while (tail.next != null) {
-                valueRev = tail.value;
-                tail = tail.next;
-            //tail.next = null;
-            //head = head.next;
+        Node<T> current = head;
+        Node<T> beforeCurrent = null, afterCurrent;
+            if (current != null && current.next != null) {
+                while (current != null) {
+                    afterCurrent = current.next;
+                    current.next = beforeCurrent;
+                    beforeCurrent = current;
+                    current = afterCurrent;
+                    head = beforeCurrent;
+                    result = true;
+                }
         }
         return result;
     }
@@ -63,5 +67,18 @@ public class RevLinked<T> implements Iterable<T> {
             this.value = value;
             this.next = next;
         }
+    }
+
+    public static void main(String[] args) {
+        RevLinked<Integer> revLinked = new RevLinked<>();
+        revLinked.add(1);
+        revLinked.add(2);
+        revLinked.add(3);
+        System.out.println(revLinked.revert());
+        Iterator<Integer> it = revLinked.iterator();
+        System.out.println(it.next());
+        System.out.println(it.next());
+        System.out.println(it.next());
+
     }
 }

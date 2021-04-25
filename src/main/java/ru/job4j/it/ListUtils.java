@@ -34,8 +34,7 @@ public class ListUtils {
     public static <T> void removeIf(List<T> list, Predicate<T> filter) {
         ListIterator<T> i = list.listIterator();
         while (i.hasNext()) {
-            if (i.next() == filter) {
-                i.next();
+            if (filter.test(i.next())) {
                 i.remove();
                 break;
             }
@@ -52,9 +51,14 @@ public class ListUtils {
     }
 
     public static void main(String[] args) {
-        List<Integer> input = new ArrayList<>(Arrays.asList(1, 3));
-        ListUtils.addBefore(input, 1, 2);
-        ListUtils.addAfter(input, 2, 4);
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 2, 4, 6, 8, 9, 10));
+        ListUtils.addBefore(input, 1, 1);
+        ListUtils.addAfter(input, 2, 3);
+        ListUtils.addBefore(input, 5, 5);
+        ListUtils.addAfter(input, 6, 7);
+        System.out.println(input);
+        Predicate<Integer> moreTwo = x -> x > 2;
+        ListUtils.removeIf(input, moreTwo);
         System.out.println(input);
     }
 

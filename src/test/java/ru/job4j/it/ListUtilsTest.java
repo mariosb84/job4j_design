@@ -38,5 +38,19 @@ public class ListUtilsTest {
         ListUtils.removeIf(input, moreTwo);
         assertThat(Arrays.asList(3), Is.is(input));
     }
+    @Test
+    public void whenReplaceIf() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+        Predicate<Integer> moreTwo = x -> x > 2;
+        ListUtils.replaceIf(input, moreTwo, 10);
+        assertThat(Arrays.asList(0, 1, 2, 10), Is.is(input));
+    }
+    @Test
+    public void whenRemoveAll() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+        List<Integer> input2 = new ArrayList<>(Arrays.asList(0, 1, 2));
+        ListUtils.removeAll(input, input2);
+        assertThat(Arrays.asList(3), Is.is(input));
+    }
 
 }

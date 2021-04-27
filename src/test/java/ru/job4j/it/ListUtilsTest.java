@@ -34,7 +34,7 @@ public class ListUtilsTest {
     @Test
     public void whenRemoveIf() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
-        Predicate<Integer> moreTwo = x -> x > 2;
+        Predicate<Integer> moreTwo = x -> x <= 2;
         ListUtils.removeIf(input, moreTwo);
         assertThat(Arrays.asList(3), Is.is(input));
     }

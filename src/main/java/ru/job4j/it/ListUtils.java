@@ -34,7 +34,8 @@ public class ListUtils {
     public static <T> void removeIf(List<T> list, Predicate<T> filter) {
         ListIterator<T> i = list.listIterator();
         while (i.hasNext()) {
-            if (!filter.test(i.next())) {
+            //if (!filter.test(i.next())) {
+            if (filter.test(i.next())) {
                 i.remove();
             }
         }
@@ -52,11 +53,14 @@ public class ListUtils {
     public static <T> void removeAll(List<T> list, List<T> elements) {
         ListIterator<T> i = list.listIterator();
         while (i.hasNext()) {
-            T find = i.next();
-            for (T t : elements) {
+             T find = i.next();
+            /*for (T t : elements) {
                 if (find == t) {
                     i.remove();
                 }
+            }*/
+            if (elements.contains(find)) {
+                 i.remove();
             }
         }
     }
@@ -68,7 +72,7 @@ public class ListUtils {
         ListUtils.addBefore(input, 5, 5);
         ListUtils.addAfter(input, 6, 7);
         System.out.println(input);
-        Predicate<Integer> moreTwo = x -> x < 5;
+        Predicate<Integer> moreTwo = x -> x >= 5;
         ListUtils.removeIf(input, moreTwo);
         System.out.println(input);
         Predicate<Integer> replaceToTen = x -> x < 5;

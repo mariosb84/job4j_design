@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class SimpleSet<T> implements Set<T> {
 
-    private SimpleArray<T> set = new SimpleArray<>();
+    private final SimpleArray<T> set = new SimpleArray<>();
 
     @Override
     public boolean add(T value) {
@@ -22,7 +22,7 @@ public class SimpleSet<T> implements Set<T> {
     public boolean contains(T value) {
         boolean result = false;
         for (T t : set) {
-            if (t.equals(value)) {
+            if (t == value) {
                 result = true;
                 break;
             }
@@ -48,6 +48,5 @@ public class SimpleSet<T> implements Set<T> {
         System.out.println(it.next());
         System.out.println(it.next());
         System.out.println(it.next());
-        //System.out.println(it.next());
     }
 }

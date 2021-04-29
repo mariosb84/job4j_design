@@ -22,9 +22,9 @@ public class SimpleSet<T> implements Set<T> {
     public boolean contains(T value) {
         boolean result = false;
         for (T t : set) {
-            if (t == value) {
-                result = true;
-                break;
+            if ((value == null && t == null) || (value != null && value.equals(t))) {
+                    result = true;
+                    break;
             }
         }
         return result;
@@ -40,6 +40,8 @@ public class SimpleSet<T> implements Set<T> {
         System.out.println(set2.add(1));
         System.out.println(set2.add(2));
         System.out.println(set2.add(3));
+        System.out.println(set2.add(null));
+        System.out.println(set2.add(null));
         System.out.println();
         System.out.println(set2.contains(4));
         System.out.println(set2.contains(3));
@@ -48,5 +50,7 @@ public class SimpleSet<T> implements Set<T> {
         System.out.println(it.next());
         System.out.println(it.next());
         System.out.println(it.next());
+        System.out.println(it.next());
+        //System.out.println(it.next());
     }
 }

@@ -10,27 +10,25 @@ public class User {
 
     private String name;
     private int children;
-    //private Calendar birthday;
-    private int birthday;
+    private Calendar birthday;
 
-    //public User(String name, int children, Calendar birthday) {
-    public User(String name, int children, int birthday) {
+    public User(String name, int children, Calendar birthday) {
         this.name = name;
         this.children = children;
         this.birthday = birthday;
     }
 
     public static void main(String[] args) {
-        //User userOne = new User("User", 10, Calendar.getInstance());
-        //User userTwo = new User("User", 10, Calendar.getInstance());
-        User userOne = new User("User", 10, 10);
-        User userTwo = new User("User", 10, 10);
+        User userOne = new User("User", 10, Calendar.getInstance());
+        User userTwo = new User("User", 10, Calendar.getInstance());
         Map<User, Object> map = new HashMap<>();
-        //HashMap<String, Integer> map2 = new HashMap<>();
         map.put(userOne, new Object());
         map.put(userTwo, new Object());
-        System.out.println(map);
-        System.out.println(userOne);
-        System.out.println(userTwo);
+        System.out.println(userOne.hashCode());
+        System.out.println(userTwo.hashCode());
+        System.out.println(map.get(userOne));
+        System.out.println(map.get(userTwo));
+        System.out.println(map.size());
+        System.out.println(map.entrySet());
     }
 }

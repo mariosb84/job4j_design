@@ -2,9 +2,7 @@ package ru.job4j.map;
 
 import jdk.swing.interop.SwingInterOpUtils;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class User {
 
@@ -17,11 +15,31 @@ public class User {
         this.children = children;
         this.birthday = birthday;
     }
+    /*@Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return children == user.children
+                && birthday == user.birthday
+                && Objects.equals(name, user.name);
+    }*/
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
+    }
 
     public static void main(String[] args) {
+        //Calendar date = new GregorianCalendar(1990, 1, 2);
+        //date.get(1);
         User userOne = new User("User", 10, Calendar.getInstance());
         User userTwo = new User("User", 10, Calendar.getInstance());
-        Map<User, Object> map = new HashMap<>();
+        HashMap<User, Object> map = new HashMap<>();
         map.put(userOne, new Object());
         map.put(userTwo, new Object());
         System.out.println(userOne.hashCode());

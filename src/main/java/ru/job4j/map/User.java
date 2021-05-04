@@ -29,10 +29,10 @@ public class User {
                 && Objects.equals(name, user.name);
     }
 
-   /* @Override
+    @Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
-    }*/
+    }
 
     public static void main(String[] args) {
         //Calendar date = new GregorianCalendar(1990, 1, 2);

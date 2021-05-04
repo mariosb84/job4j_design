@@ -15,7 +15,7 @@ public class User {
         this.children = children;
         this.birthday = birthday;
     }
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -27,12 +27,12 @@ public class User {
         return children == user.children
                 && birthday == user.birthday
                 && Objects.equals(name, user.name);
-    }*/
+    }
 
-    @Override
+   /* @Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
-    }
+    }*/
 
     public static void main(String[] args) {
         //Calendar date = new GregorianCalendar(1990, 1, 2);

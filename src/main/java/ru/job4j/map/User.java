@@ -31,10 +31,10 @@ public class User {
                 && Objects.equals(name, user.name);
     }
 
-   /* @Override
+    @Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
-    }*/
+    }
 
     public static void main(String[] args) {
         //User userOne = new User("User", 10, Calendar.getInstance());

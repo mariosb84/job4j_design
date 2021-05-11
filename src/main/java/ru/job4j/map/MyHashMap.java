@@ -1,7 +1,5 @@
 package ru.job4j.map;
 
-import ru.job4j.collection.ForwardLinked;
-
 import java.util.*;
 
 public class MyHashMap<K, V> implements Iterable<K> {
@@ -12,11 +10,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private Object[] container = new Object[capacity];
 
     public V get(K key) {
-        V result = null;
-        if ((myHash(key) == myHash(head.key))) {
-            result = (V) container[Objects.checkIndex(index, this.index)];
-        }
-        return result;
+       // return (V) container[indexOfBucket(key)];
+        return container[indexOfBucket(key)].;
     }
     public boolean insert(K key, V value) {
         boolean result = false;
@@ -27,25 +22,32 @@ public class MyHashMap<K, V> implements Iterable<K> {
         Node<K, V> node = new Node<>(key, value, null);
         if (head == null) {
             head = node;
+            container[index] = node;
             result = true;
         }
-        Node<K, V> tail = head;
-        while (tail.next != null && myHash(key) != myHash(tail.next.key)) {
-            tail = tail.next;
+        if (!container[indexOfBucket(key)].equals(node)) {
+            index = indexOfBucket(key);
+            container[index] = node;
+            index++;
+            modCount++;
+            result = true;
         }
-        tail.next = node;
-                container[index] = value;
-                index++;
-                modCount++;
-                result = true;
            return result;
     }
 
     public boolean delete(K key) {
-        return false;
+        boolean result = false;
+        if (indexOfBucket(key) >= 0) {
+            container[indexOfBucket(key)] = null;
+            result = true;
+        }
+        return result;
     }
     private int myHash(K key) {
         return (key.hashCode()) ^ (key.hashCode() >>> capacity);
+    }
+    private int indexOfBucket(K key) {
+       return (capacity - 1) & myHash(key);
     }
 
     @Override

@@ -3,15 +3,13 @@ package ru.job4j.map;
 import java.util.*;
 
 public class MyHashMap<K, V> implements Iterable<K> {
-    private Node<K, V> head;
     private  int index = 0;
     private  int capacity = 16;
     private  int modCount = 0;
     private Object[] container = new Object[capacity];
 
     public V get(K key) {
-       // return (V) container[indexOfBucket(key)];
-        return container[indexOfBucket(key)].;
+        return (V) container[indexOfBucket(key)];
     }
     public boolean insert(K key, V value) {
         boolean result = false;
@@ -20,12 +18,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
             capacity *= 2;
         }
         Node<K, V> node = new Node<>(key, value, null);
-        if (head == null) {
-            head = node;
-            container[index] = node;
-            result = true;
-        }
-        if (!container[indexOfBucket(key)].equals(node)) {
+        if (Objects.equals(container[indexOfBucket(key)], null)
+                || !container[indexOfBucket(key)].equals(node)) {
             index = indexOfBucket(key);
             container[index] = node;
             index++;
@@ -82,6 +76,18 @@ public class MyHashMap<K, V> implements Iterable<K> {
             this.value = value;
             this.next = next;
         }
+    }
+
+    public static void main(String[] args) {
+        MyHashMap<Integer, Integer> myHashMap = new MyHashMap<>();
+        System.out.println(myHashMap.insert(1, 155));
+        System.out.println(myHashMap.get(1));
+        System.out.println(myHashMap.delete(1));
+        System.out.println(myHashMap.get(1));
+        System.out.println(myHashMap.insert(1, 155));
+        System.out.println(myHashMap.insert(2, 155));
+        System.out.println(myHashMap.insert(3, 155));
+
     }
 }
 

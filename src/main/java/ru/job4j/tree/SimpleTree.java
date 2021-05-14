@@ -12,6 +12,31 @@ class SimpleTree<E> implements Tree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
+            Node newNode = new Node(child);
+            if (root == null) {
+                root = newNode;
+            } else {
+                Node currentNode = root;
+                Node parentNode;
+                while (true) {
+                    parentNode = currentNode;
+                    if (child == currentNode.value()) {
+                        return false;
+                    } else  if (value < currentNode.getValue()) {
+                        currentNode = currentNode.getLeftChild();
+                        if (currentNode == null) {
+                            parentNode.setLeftChild(newNode);
+                            return false;
+                        }
+                    } else {
+                        currentNode = currentNode.getRightChild();
+                        if (currentNode == null) {
+                            parentNode.setRightChild(newNode);
+                            return false;
+                        }
+                    }
+                }
+            }
         return rsl;
     }
 

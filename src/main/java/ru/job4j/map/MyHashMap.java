@@ -6,16 +6,23 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private  int index = 0;
     private  int capacity = 16;
     private  int modCount = 0;
-    private Object[] container = new Object[capacity];
+    //private Object[] container = new Object[capacity];
+    private Node<K, V>[] container;
+    //count / capacity >= 0.75
+    private final boolean loadfactor = (float) index / capacity >= 0.75;
 
     public V get(K key) {
-        return (V) container[indexOfBucket(key)];
+        return (container[indexOfBucket(key)].key.equals(key))
+                ? (V) container[indexOfBucket(key)] : null;
     }
     public boolean insert(K key, V value) {
         boolean result = false;
-        if (index >= capacity) {
+        /*if (index >= capacity) {
             container = Arrays.copyOf(container, capacity * 2);
             capacity *= 2;
+        }*/
+        if (loadfactor) {
+            container = new Node<K, V>[];
         }
         Node<K, V> node = new Node<>(key, value, null);
         if (Objects.equals(container[indexOfBucket(key)], null)
@@ -31,7 +38,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
 
     public boolean delete(K key) {
         boolean result = false;
-        if (indexOfBucket(key) >= 0) {
+        if ((indexOfBucket(key) >= 0)
+                && (container[indexOfBucket(key)].key.equals(key))) {
             container[indexOfBucket(key)] = null;
             result = true;
         }

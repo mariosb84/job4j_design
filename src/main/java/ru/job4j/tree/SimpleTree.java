@@ -12,7 +12,7 @@ class SimpleTree<E> implements Tree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-            Node newNode = new Node(child);
+           /* Node newNode = new Node(child);
             if (root == null) {
                 root = newNode;
             } else {
@@ -36,7 +36,7 @@ class SimpleTree<E> implements Tree<E> {
                         }
                     }
                 }
-            }
+            }*/
         return rsl;
     }
 

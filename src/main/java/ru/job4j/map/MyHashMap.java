@@ -6,30 +6,28 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private  int index = 0;
     private  int capacity = 16;
     private  int modCount = 0;
-    private  Node<K, V>[] container;
-    private final boolean loadfactor = (float) index / capacity >= 0.75;
+    private final Node<K, V>[] container;
+    private final double load = (double) index / capacity;
 
     public MyHashMap() {
-
-    }
-    public MyHashMap(Node<K, V>[] containerNew) {
+        Node<K, V>[] containerNew = new Node[capacity];
         this.container = containerNew;
     }
 
     public V get(K key) {
-        return (container[indexOfBucket(key)].key.equals(key))
+        return (container[indexOfBucket(key)] != null
+                && container[indexOfBucket(key)].key.equals(key))
                 ? (V) container[indexOfBucket(key)] : null;
     }
     public boolean insert(K key, V value) {
         boolean result = false;
-        if (loadfactor) {
-            new MyHashMap<>(container);
+        if (load >= 0.75) {
             capacity *= 2;
         }
-        /*if (container == null) {
-            container.length = capacity;
-        }*/
         Node<K, V> node = new Node<>(key, value, null);
+        if (container.length == 0 || container == null) {
+            new MyHashMap<>();
+        }
         if (Objects.equals(container[indexOfBucket(key)], null)
                 || !container[indexOfBucket(key)].equals(node)) {
             index = indexOfBucket(key);
@@ -92,17 +90,67 @@ public class MyHashMap<K, V> implements Iterable<K> {
 
     public static void main(String[] args) {
         MyHashMap<Integer, Integer> myHashMap = new MyHashMap<>();
-        //System.out.println(myHashMap.insert(1, 155));
-       // System.out.println(myHashMap.get(1));
-        //System.out.println(myHashMap.delete(1));
-       // System.out.println(myHashMap.get(1));
-        //System.out.println(myHashMap.insert(1, 155));
-       // System.out.println(myHashMap.insert(2, 155));
-       // System.out.println(myHashMap.insert(3, 155));
-        System.out.println(Arrays.toString(myHashMap.container));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(1, 155));
+        System.out.println("Get: ");
+        System.out.println(myHashMap.get(1));
+        System.out.println("Delete: ");
+        System.out.println(myHashMap.delete(1));
+        System.out.println("Get: ");
+        System.out.println(myHashMap.get(1));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(1, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(2, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(3, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(4, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(5, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(6, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(7, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(8, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(9, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(10, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(11, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(12, 155));
+        System.out.println("Index: ");
         System.out.println(myHashMap.index);
-        //System.out.println(myHashMap.container[0]);
+        System.out.println("LoadFactor:");
+        System.out.println(myHashMap.load);
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(13, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(14, 155));
+        System.out.println("Add: ");
+        System.out.println(myHashMap.insert(15, 155));
+        System.out.println("Index: ");
+        System.out.println(myHashMap.index);
+        System.out.println("LoadFactor:");
+        System.out.println(myHashMap.load);
+        System.out.println("Container: ");
+        System.out.println(Arrays.toString(myHashMap.container));
+        System.out.println("Index: ");
+        System.out.println(myHashMap.index);
+        System.out.println("Container[0]: ");
+        System.out.println(myHashMap.container[0]);
+        System.out.println("Container.length: ");
         System.out.println(myHashMap.container.length);
+        System.out.println();
+        int x = 5;
+        int y = 10;
+        double z = (double) x / y;
+        System.out.println((double) x);
+        System.out.println((double) y);
+        System.out.println(z);
 
     }
 }

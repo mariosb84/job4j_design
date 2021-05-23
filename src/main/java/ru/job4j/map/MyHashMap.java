@@ -7,7 +7,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private  int capacity = 16;
     private  int modCount = 0;
     private final Node<K, V>[] container;
-    private final double load = (double) index / capacity;
+    private  final double load = 0.75;
 
     public MyHashMap() {
         Node<K, V>[] containerNew = new Node[capacity];
@@ -21,8 +21,9 @@ public class MyHashMap<K, V> implements Iterable<K> {
     }
     public boolean insert(K key, V value) {
         boolean result = false;
-        if (load >= 0.75) {
+        if ((double) index / capacity >= load) {
             capacity *= 2;
+            new MyHashMap<>();
         }
         Node<K, V> node = new Node<>(key, value, null);
         if (container.length == 0 || container == null) {
@@ -92,6 +93,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
         MyHashMap<Integer, Integer> myHashMap = new MyHashMap<>();
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(1, 155));
+        System.out.println("Index: ");
+        System.out.println(myHashMap.index);
         System.out.println("Get: ");
         System.out.println(myHashMap.get(1));
         System.out.println("Delete: ");
@@ -100,6 +103,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println(myHashMap.get(1));
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(1, 155));
+        System.out.println("Index: ");
+        System.out.println(myHashMap.index);
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(2, 155));
         System.out.println("Add: ");
@@ -114,6 +119,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println(myHashMap.insert(7, 155));
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(8, 155));
+        System.out.println("Index: ");
+        System.out.println(myHashMap.index);
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(9, 155));
         System.out.println("Add: ");
@@ -121,21 +128,21 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(11, 155));
         System.out.println("Add: ");
+        System.out.println("Index: ");
+        System.out.println(myHashMap.index);
         System.out.println(myHashMap.insert(12, 155));
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
-        System.out.println("LoadFactor:");
-        System.out.println(myHashMap.load);
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(13, 155));
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(14, 155));
+        System.out.println("Index: ");
+        System.out.println(myHashMap.index);
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(15, 155));
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
-        System.out.println("LoadFactor:");
-        System.out.println(myHashMap.load);
         System.out.println("Container: ");
         System.out.println(Arrays.toString(myHashMap.container));
         System.out.println("Index: ");
@@ -144,13 +151,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println(myHashMap.container[0]);
         System.out.println("Container.length: ");
         System.out.println(myHashMap.container.length);
-        System.out.println();
-        int x = 5;
-        int y = 10;
-        double z = (double) x / y;
-        System.out.println((double) x);
-        System.out.println((double) y);
-        System.out.println(z);
+        System.out.println("Capacity: ");
+        System.out.println(myHashMap.capacity);
 
     }
 }

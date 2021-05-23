@@ -12,31 +12,14 @@ class SimpleTree<E> implements Tree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-           /* Node newNode = new Node(child);
-            if (root == null) {
-                root = newNode;
-            } else {
-                Node currentNode = root;
-                Node parentNode;
-                while (true) {
-                    parentNode = currentNode;
-                    if (child == currentNode.value()) {
-                        return false;
-                    } else  if (value < currentNode.getValue()) {
-                        currentNode = currentNode.getLeftChild();
-                        if (currentNode == null) {
-                            parentNode.setLeftChild(newNode);
-                            return false;
-                        }
-                    } else {
-                        currentNode = currentNode.getRightChild();
-                        if (currentNode == null) {
-                            parentNode.setRightChild(newNode);
-                            return false;
-                        }
-                    }
-                }
-            }*/
+        if (findBy(parent).isEmpty()) {                                            // добавляем parent и child
+            new SimpleTree<>(parent);
+            // как-то добавить child ???
+        } else if (findBy(parent).isPresent() && findBy(child).isEmpty()) {        // добавляем child
+            // как-то добавить child ???
+            new SimpleTree<>(child);
+            rsl = true;
+        }
         return rsl;
     }
 

@@ -6,8 +6,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private  int index = 0;
     private  int capacity = 16;
     private  int modCount = 0;
-    private final Node<K, V>[] container;
-    private  final double load = 0.75;
+    private Node<K, V>[] container = new Node[capacity];
+    private static final double LOAD_FACTOR = 0.75;
 
     public MyHashMap() {
         Node<K, V>[] containerNew = new Node[capacity];
@@ -21,19 +21,14 @@ public class MyHashMap<K, V> implements Iterable<K> {
     }
     public boolean insert(K key, V value) {
         boolean result = false;
-        if ((double) index / capacity >= load) {
-            capacity *= 2;
-            new MyHashMap<>();
+        if ((double) index / capacity >= LOAD_FACTOR) {
+            expand();
         }
         Node<K, V> node = new Node<>(key, value, null);
-        if (container.length == 0 || container == null) {
-            new MyHashMap<>();
-        }
         if (Objects.equals(container[indexOfBucket(key)], null)
-                || !container[indexOfBucket(key)].equals(node)) {
+                || container[indexOfBucket(key)].equals(node)) {
             index = indexOfBucket(key);
             container[index] = node;
-            index++;
             modCount++;
             result = true;
         }
@@ -42,7 +37,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
 
     public boolean delete(K key) {
         boolean result = false;
-        if ((indexOfBucket(key) >= 0)
+        if (!Objects.equals(container[indexOfBucket(key)], null)
                 && (container[indexOfBucket(key)].key.equals(key))) {
             container[indexOfBucket(key)] = null;
             result = true;
@@ -54,6 +49,18 @@ public class MyHashMap<K, V> implements Iterable<K> {
     }
     private int indexOfBucket(K key) {
        return (capacity - 1) & myHash(key);
+    }
+    private void expand() {
+        capacity *= 2;
+        int i = 0;
+        Node<K, V>[] containerLarge = new Node[capacity];
+        for (Node<K, V> notNull : container) {
+            if (notNull != null) {
+                containerLarge[indexOfBucket(notNull.key)] = container[i];
+            }
+            i++;
+        }
+        this.container = containerLarge;
     }
     @Override
     public Iterator<K> iterator() {
@@ -92,7 +99,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
     public static void main(String[] args) {
         MyHashMap<Integer, Integer> myHashMap = new MyHashMap<>();
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(1, 155));
+        System.out.println(myHashMap.insert(1, 1));
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
         System.out.println("Get: ");
@@ -102,45 +109,47 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println("Get: ");
         System.out.println(myHashMap.get(1));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(1, 155));
+        System.out.println(myHashMap.insert(2, 2));
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(2, 155));
+        System.out.println(myHashMap.insert(3, 3));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(3, 155));
+        System.out.println(myHashMap.insert(4, 4));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(4, 155));
+        System.out.println(myHashMap.insert(5, 5));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(5, 155));
+        System.out.println(myHashMap.insert(6, 6));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(6, 155));
+        System.out.println(myHashMap.insert(7, 7));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(7, 155));
+        System.out.println(myHashMap.insert(8, 8));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(8, 155));
+        System.out.println(myHashMap.insert(9, 9));
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(9, 155));
+        System.out.println(myHashMap.insert(10, 10));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(10, 155));
+        System.out.println(myHashMap.insert(11, 11));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(11, 155));
+        System.out.println(myHashMap.insert(12, 12));
         System.out.println("Add: ");
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
-        System.out.println(myHashMap.insert(12, 155));
+        System.out.println("Container: ");
+        System.out.println(Arrays.toString(myHashMap.container));
+        System.out.println(myHashMap.insert(13, 13));
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(13, 155));
+        System.out.println(myHashMap.insert(14, 14));
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(14, 155));
+        System.out.println(myHashMap.insert(15, 15));
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(15, 155));
+        System.out.println(myHashMap.insert(16, 16));
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
         System.out.println("Container: ");
@@ -148,7 +157,9 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
         System.out.println("Container[0]: ");
-        System.out.println(myHashMap.container[0]);
+        System.out.println(myHashMap.container[0].value);
+        System.out.println("Container[10]: ");
+        //System.out.println(myHashMap.container[10].value);
         System.out.println("Container.length: ");
         System.out.println(myHashMap.container.length);
         System.out.println("Capacity: ");

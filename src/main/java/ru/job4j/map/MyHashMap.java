@@ -9,10 +9,10 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private Node<K, V>[] container = new Node[capacity];
     private static final double LOAD_FACTOR = 0.75;
 
-    public MyHashMap() {
+    /*public MyHashMap() {
         Node<K, V>[] containerNew = new Node[capacity];
         this.container = containerNew;
-    }
+    }*/
 
     public V get(K key) {
         return (container[indexOfBucket(key)] != null
@@ -50,7 +50,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private int indexOfBucket(K key) {
        return (capacity - 1) & myHash(key);
     }
-    private void expand() {
+    private Node<K, V>[] expand() {
         capacity *= 2;
         int i = 0;
         Node<K, V>[] containerLarge = new Node[capacity];
@@ -61,6 +61,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
             i++;
         }
         this.container = containerLarge;
+        return container;
     }
     @Override
     public Iterator<K> iterator() {

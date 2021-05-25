@@ -9,11 +9,6 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private Node<K, V>[] container = new Node[capacity];
     private static final double LOAD_FACTOR = 0.75;
 
-    /*public MyHashMap() {
-        Node<K, V>[] containerNew = new Node[capacity];
-        this.container = containerNew;
-    }*/
-
     public V get(K key) {
         return (container[indexOfBucket(key)] != null
                 && container[indexOfBucket(key)].key.equals(key))
@@ -50,18 +45,15 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private int indexOfBucket(K key) {
        return (capacity - 1) & myHash(key);
     }
-    private Node<K, V>[] expand() {
+    private void   expand() {
         capacity *= 2;
-        int i = 0;
         Node<K, V>[] containerLarge = new Node[capacity];
         for (Node<K, V> notNull : container) {
             if (notNull != null) {
-                containerLarge[indexOfBucket(notNull.key)] = container[i];
+                containerLarge[indexOfBucket(notNull.key)] = notNull;
             }
-            i++;
         }
         this.container = containerLarge;
-        return container;
     }
     @Override
     public Iterator<K> iterator() {
@@ -135,7 +127,6 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println(myHashMap.insert(11, 11));
         System.out.println("Add: ");
         System.out.println(myHashMap.insert(12, 12));
-        System.out.println("Add: ");
         System.out.println("Index: ");
         System.out.println(myHashMap.index);
         System.out.println("Container: ");

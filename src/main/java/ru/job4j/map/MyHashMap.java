@@ -40,7 +40,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
         return result;
     }
     private int myHash(K key) {
-        return (key.hashCode()) ^ (key.hashCode() >>> capacity);
+        return (key == null) ? 0 : (key.hashCode()) ^ key.hashCode() >>> 16;
     }
     private int indexOfBucket(K key) {
        return (capacity - 1) & myHash(key);
@@ -156,7 +156,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println("Index: ");
         System.out.println(myHashMap.count);
         System.out.println("Container[0]: ");
-        System.out.println(myHashMap.container[0].value);
+        //System.out.println(myHashMap.container[0].value);
         //System.out.println("Container[10]: ");
         //System.out.println(myHashMap.container[10].value);
         System.out.println("Container.length: ");
@@ -164,8 +164,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println("Capacity: ");
         System.out.println(myHashMap.capacity);
         System.out.println("container values :");
-        System.out.println(myHashMap.container[0].value);
-        System.out.println(myHashMap.container[1].value);
+        //System.out.println(myHashMap.container[0].value);
+        //System.out.println(myHashMap.container[1].value);
         System.out.println(myHashMap.container[2].value);
         System.out.println(myHashMap.container[3].value);
         System.out.println(myHashMap.container[4].value);

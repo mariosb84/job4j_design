@@ -10,31 +10,32 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private static final double LOAD_FACTOR = 0.75;
 
     public V get(K key) {
-        return (container[indexOfBucket(key)] != null
-                && container[indexOfBucket(key)].key.equals(key))
-                ? container[indexOfBucket(key)].value : null;
+        int index = indexOfBucket(key);
+        return (container[index] != null
+                && container[index].key.equals(key))
+                ? container[index].value : null;
     }
     public boolean insert(K key, V value) {
-        boolean result = false;
         if ((double) count / capacity >= LOAD_FACTOR) {
             expand();
         }
-        Node<K, V> node = new Node<>(key, value, null);
-        if (Objects.equals(container[indexOfBucket(key)], null)
-                || !container[indexOfBucket(key)].equals(node)) {
-            count = indexOfBucket(key);
-            container[count] = node;
-            modCount++;
-            result = true;
+        int index = indexOfBucket(key);
+        if (container[index] != null) {
+            return false;
         }
-           return result;
+        Node<K, V> node = new Node<>(key, value, null);
+        container[index] = node;
+            count++;
+            modCount++;
+           return true;
     }
 
     public boolean delete(K key) {
         boolean result = false;
-        if (!Objects.equals(container[indexOfBucket(key)], null)
-                && (container[indexOfBucket(key)].key.equals(key))) {
-            container[indexOfBucket(key)] = null;
+        int index = indexOfBucket(key);
+        if (!Objects.equals(container[index], null)
+                && (container[index].key.equals(key))) {
+            container[index] = null;
             result = true;
         }
         return result;
@@ -48,14 +49,10 @@ public class MyHashMap<K, V> implements Iterable<K> {
     private void   expand() {
         capacity *= 2;
         Node<K, V>[] containerLarge = new Node[capacity];
-        int i = 0;
         for (Node<K, V> notNull : container) {
             if (notNull != null) {
-               // containerLarge[indexOfBucket(notNull.key)] = notNull;
-                containerLarge[indexOfBucket(container[i].key)] = notNull;
-                //i++;
+                containerLarge[indexOfBucket(notNull.key)] = notNull;
             }
-            i++;
         }
         this.container = containerLarge;
     }
@@ -66,7 +63,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
             private final int expectedModCount = modCount;
             @Override
             public boolean hasNext() {
-                while (container[position] == null) {
+                while (position < container.length && container[position] == null) {
                         position++;
                 }
                 return position < container.length;
@@ -79,7 +76,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return (K) container[position++];
+                return container[position++].key;
             }
         };
     }

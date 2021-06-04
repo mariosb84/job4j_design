@@ -2,11 +2,7 @@ package ru.job4j.map;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
-
-import org.junit.Before;
 import org.junit.Test;
-import ru.job4j.it.EvenIt;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -75,9 +71,10 @@ public class MyHashMapTest {
         myHashMap.insert(0, 1);
         myHashMap.insert(1, 2);
         myHashMap.insert(2, 3);
-        myHashMap.iterator().next();
-        myHashMap.iterator().next();
-        assertThat(myHashMap.iterator().next(), is(2));
+        Iterator<Integer> iterator = myHashMap.iterator();
+        assertThat(iterator.next(), is(0));
+        assertThat(iterator.next(), is(1));
+        assertThat(iterator.next(), is(2));
     }
     @Test(expected = NoSuchElementException.class)
     public void whenDeleteNextEl() {
@@ -86,9 +83,10 @@ public class MyHashMapTest {
         myHashMap.insert(1, 2);
         myHashMap.insert(2, 3);
         myHashMap.delete(2);
-        assertThat(myHashMap.iterator().next(), is(0));
-        assertThat(myHashMap.iterator().next(), is(1));
-        assertThat(myHashMap.iterator().hasNext(), is(false));
-        myHashMap.iterator().next();
+        Iterator<Integer> iterator = myHashMap.iterator();
+        assertThat(iterator.next(), is(0));
+        assertThat(iterator.next(), is(1));
+        assertThat(iterator.hasNext(), is(false));
+        iterator.next();
     }
 }

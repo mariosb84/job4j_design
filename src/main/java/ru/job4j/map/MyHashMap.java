@@ -35,6 +35,8 @@ public class MyHashMap<K, V> implements Iterable<K> {
         int index = indexOfBucket(key);
         if (!Objects.equals(container[index], null)
                 && (container[index].key.equals(key))) {
+            count--;
+            modCount++;
             container[index] = null;
             result = true;
         }
@@ -100,12 +102,14 @@ public class MyHashMap<K, V> implements Iterable<K> {
         System.out.println(myHashMap.insert(1, 2));
         System.out.println(myHashMap.insert(2, 3));
         System.out.println(Arrays.toString(myHashMap.container));
-        System.out.println(myHashMap.iterator().next());
-        System.out.println(myHashMap.iterator().next());
-        System.out.println(myHashMap.iterator().next());
-
-
-
+        System.out.println("Delete: ");
+        System.out.println(myHashMap.delete(0));
+        System.out.println(Arrays.toString(myHashMap.container));
+        System.out.println("Iterator: ");
+        Iterator<Integer> iterator = myHashMap.iterator();
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
     }
 }
 

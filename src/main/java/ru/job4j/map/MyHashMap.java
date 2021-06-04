@@ -63,7 +63,7 @@ public class MyHashMap<K, V> implements Iterable<K> {
             private final int expectedModCount = modCount;
             @Override
             public boolean hasNext() {
-                while (position < container.length && container[position] == null) {
+               while (position < container.length && container[position] == null) {
                         position++;
                 }
                 return position < container.length;
@@ -96,93 +96,14 @@ public class MyHashMap<K, V> implements Iterable<K> {
     public static void main(String[] args) {
         MyHashMap<Integer, Integer> myHashMap = new MyHashMap<>();
         System.out.println("Add: ");
-        System.out.println(myHashMap.insert(1, 1));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
-        System.out.println("Get: ");
-        System.out.println(myHashMap.get(1));
-        System.out.println("Delete: ");
-        System.out.println(myHashMap.delete(1));
-        System.out.println("Get: ");
-        System.out.println(myHashMap.get(1));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(2, 2));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(3, 3));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(4, 4));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(5, 5));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(6, 6));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(7, 7));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(8, 8));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(9, 9));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(10, 10));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(11, 11));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(12, 12));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
-        System.out.println("Container: ");
+        System.out.println(myHashMap.insert(0, 1));
+        System.out.println(myHashMap.insert(1, 2));
+        System.out.println(myHashMap.insert(2, 3));
         System.out.println(Arrays.toString(myHashMap.container));
-        System.out.println(myHashMap.insert(13, 13));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(14, 14));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(15, 15));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(16, 16));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
-        System.out.println("Container: ");
-        System.out.println(Arrays.toString(myHashMap.container));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
-        System.out.println("Container[0]: ");
-        //System.out.println(myHashMap.container[0].value);
-        //System.out.println("Container[10]: ");
-        //System.out.println(myHashMap.container[10].value);
-        System.out.println("Container.length: ");
-        System.out.println(myHashMap.container.length);
-        System.out.println("Capacity: ");
-        System.out.println(myHashMap.capacity);
-        System.out.println("container values :");
-        //System.out.println(myHashMap.container[0].value);
-        //System.out.println(myHashMap.container[1].value);
-        System.out.println(myHashMap.container[2].value);
-        System.out.println(myHashMap.container[3].value);
-        System.out.println(myHashMap.container[4].value);
-        System.out.println(myHashMap.container[5].value);
-        System.out.println(myHashMap.container[6].value);
-        System.out.println(myHashMap.container[7].value);
-        System.out.println(myHashMap.container[8].value);
-        System.out.println(myHashMap.container[9].value);
-        System.out.println(myHashMap.container[10].value);
-        //System.out.println(myHashMap.container[11].value);
-        //System.out.println(myHashMap.container[12].value);
-        //System.out.println(myHashMap.container[13].value);
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(17, 17));
-        System.out.println("Add: ");
-        System.out.println(myHashMap.insert(25, 25));
-        System.out.println("Container: ");
-        System.out.println(Arrays.toString(myHashMap.container));
-        System.out.println("Index: ");
-        System.out.println(myHashMap.count);
+        System.out.println(myHashMap.iterator().next());
+        System.out.println(myHashMap.iterator().next());
+        System.out.println(myHashMap.iterator().next());
+
 
 
     }

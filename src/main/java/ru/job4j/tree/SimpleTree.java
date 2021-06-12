@@ -12,12 +12,16 @@ class SimpleTree<E> implements Tree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-        if (findBy(parent).isEmpty()) {                                            // добавляем parent и child
-            new SimpleTree<>(parent);
-            // как-то добавить child ???
-        } else if (findBy(parent).isPresent() && findBy(child).isEmpty()) {        // добавляем child
-            // как-то добавить child ???
-            new SimpleTree<>(child);
+        Node<E> parentNode = new Node<>(parent);
+        Node<E> childNode = new Node<>(child);
+        if (findBy(child).isPresent()) {
+          return false;
+        }
+        if (findBy(parent).isEmpty()) {
+            parentNode.children.add(childNode);
+            rsl = true;
+        } else if (findBy(parent).isPresent()) {
+            root.children.add(childNode);
             rsl = true;
         }
         return rsl;
@@ -37,5 +41,17 @@ class SimpleTree<E> implements Tree<E> {
             data.addAll(el.children);
         }
         return rsl;
+    }
+
+    public static void main(String[] args) {
+        SimpleTree<Integer> simpleTree = new SimpleTree<>(1);
+        System.out.println(simpleTree.add(1, 3));
+        System.out.println(simpleTree.add(1, 4));
+        System.out.println(simpleTree.add(1, 3));
+        System.out.println(simpleTree.add(1, 4));
+        System.out.println(simpleTree.findBy(1));
+        System.out.println(simpleTree.findBy(2));
+        System.out.println(simpleTree.findBy(3));
+        System.out.println(simpleTree.findBy(4));
     }
 }

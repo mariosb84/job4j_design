@@ -8,27 +8,24 @@ import java.util.Set;
 public class Analize {
 
     public static Info diff(Set<User> previous, Set<User> current) {
+        Map<Integer, User> map = new HashMap<>();
         int add = 0, change = 0, delete = 0;
         for (User userPrevious : previous) {
+            map.put(userPrevious.getId(), userPrevious);
+        }
         for (User userCurrent : current) {
-                 if (userChange(userPrevious, userCurrent)) {
-                change = 1;
-                           }
-            if ((!current.contains(userPrevious)) && (!userChange(userPrevious, userCurrent))) {
-                delete = 1;
-                        }
-            if ((!previous.contains(userCurrent)) && (!userChange(userPrevious, userCurrent))) {
+            if  (!map.containsKey(userCurrent.getId())) {
                 add = 1;
-              }
-
+            }
+            if (map.containsKey(userCurrent.getId())
+                    && (!map.get(userCurrent.getId()).equals(userCurrent))) {
+                change = 1;
             }
 
+                delete = previous.size() + add - current.size();
         }
+
         return new Info(add, change, delete);
-    }
-    private static boolean userChange(User userPrevious, User userCurrent) {
-        return (Objects.equals(userPrevious.getId(), userCurrent.getId())
-                && (!Objects.equals(userPrevious.getName(), userCurrent.getName())));
     }
 
 }

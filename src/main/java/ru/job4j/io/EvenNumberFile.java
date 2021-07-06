@@ -10,9 +10,10 @@ public class EvenNumberFile {
             int read;
             while ((read = in.read()) != -1) {
                 if (read % 2 == 0) {
-                    System.out.println("Even");
+                    text.append((char) read).append("Even");
+                } else {
+                    text.append((char) read);
                 }
-                text.append((char) read);
             }
             System.out.println(text);
         } catch (Exception e) {

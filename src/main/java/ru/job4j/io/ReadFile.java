@@ -11,6 +11,10 @@ public class ReadFile {
                 text.append((char) read);
             }
             System.out.println(text);
+            String[] lines = text.toString().split(System.lineSeparator());
+            for (String line : lines) {
+                System.out.println(line);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

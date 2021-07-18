@@ -20,7 +20,7 @@ public class ConfigTest {
         String path = "data/pair_with_comment.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("name"), is("Petr Arsentev"));
+        assertThat(config.value("name2"), is("Fedor Arsentev"));
     }
     @Test
     public void whenPairWithEmptyLines() {
@@ -29,11 +29,11 @@ public class ConfigTest {
         config.load();
         assertThat(config.value("name"), is("Petr Arsentev"));
     }
-    @Test(expected = UnsupportedOperationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void whenPairWithInvalidKey()  {
         String path = "data/pair_with_invalidKey.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value(null), is("Petr Arsentev"));
+        assertThat(config.value("name"), is("Petr Arsentev"));
     }
 }

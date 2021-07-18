@@ -2,10 +2,9 @@ package ru.job4j.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Config {
 
@@ -17,26 +16,20 @@ public class Config {
     }
 
     public void load() {
-        String key;
-        String value;
         try (BufferedReader in = new BufferedReader(new FileReader(this.path))) {
-            for (String x = in.readLine(); x != null; x = in.readLine()) {
-                    for (int i = 0; i < x.split("=").length - 1; i++) {
-                   key = x.split("=")[i];
-                   value = x.split("=")[i + 1];
-                       values.put(key, value);
-                }
-            }
-
+            in.lines()
+                    .filter(s -> (s != null) && !(s.substring(0, 1).contains("#")))
+                    .filter(s -> (s.split("=").length == 2))
+                    .forEach(s -> values.put(s.split("=")[0], s.split("=")[1]));
+            /*if (s.split("=").length != 2) {
+                    throw new IllegalArgumentException();
+                }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public String value(String key) {
-        if (key == null) {
-            throw new UnsupportedOperationException("Don't impl this method yet!");
-        }
         return values.get(key);
     }
 

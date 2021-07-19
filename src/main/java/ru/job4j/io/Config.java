@@ -2,9 +2,8 @@ package ru.job4j.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Config {
 
@@ -18,13 +17,16 @@ public class Config {
     public void load() {
         try (BufferedReader in = new BufferedReader(new FileReader(this.path))) {
             in.lines()
-                    .filter(s -> (s != null) && !(s.substring(0, 1).contains("#")))
-                    .filter(s -> (s.split("=").length == 2))
-                    .forEach(s -> values.put(s.split("=")[0], s.split("=")[1]));
-            /*if (s.split("=").length != 2) {
+                    .filter(s -> (!s.isEmpty()) && !(s.substring(0, 1).contains("#")))
+                    .map(s -> s.split("="))
+                    .filter(s -> {
+                if (s.length != 2) {
                     throw new IllegalArgumentException();
-                }*/
-        } catch (Exception e) {
+                }
+                return true;
+            })
+                    .forEach(s -> values.put(s[0], s[1]));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

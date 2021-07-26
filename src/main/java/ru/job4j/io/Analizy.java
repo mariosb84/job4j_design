@@ -18,13 +18,13 @@ public class Analizy {
                         })
                         .forEach(s -> {
                             try {
-                                if ((s[0].substring(0, 3).contains("400") && statusWrite)
-                                || (s[0].substring(0, 3).contains("500") && statusWrite)) {
+                                boolean eqw = (s[0].substring(0, 3).contains("400")
+                                        || (s[0].substring(0, 3).contains("500")));
+                                if (eqw && statusWrite) {
                                     statusWrite = false;
-                                    out.write("The server was not working :   " + s[1]
+                                    out.write(s[1]
                                             + " ; ");
-                                } else if (!statusWrite && !((s[0].substring(0, 3).contains("400"))
-                                        || (s[0].substring(0, 3).contains("500")))) {
+                                } else if (!statusWrite && !eqw) {
                                     statusWrite = true;
                                     out.write(s[1]
                                             + System.lineSeparator());

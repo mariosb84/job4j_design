@@ -29,10 +29,12 @@ public class AnalizyTest {
         analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder rsl = new StringBuilder();
         try (BufferedReader in = new BufferedReader(new FileReader(target))) {
-            in.lines().forEach(rsl::append);
+            //in.lines().forEach(rsl::append);
+            in.lines().forEach(s ->
+                    rsl.append(s).append(System.lineSeparator()));
         }
-        assertThat(rsl.toString(), is("10:57:01 ; 10:59:01"
-                + "11:01:02 ; 11:02:02"));
+        assertThat(rsl.toString(), is("10:57:01 ; 10:59:01\r\n" +
+                "11:01:02 ; 11:02:02\r\n"));
     }
     @Test
     public void unavailableSecond() throws IOException {
@@ -50,9 +52,11 @@ public class AnalizyTest {
         analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder rsl = new StringBuilder();
         try (BufferedReader in = new BufferedReader(new FileReader(target))) {
-            in.lines().forEach(rsl::append);
+           // in.lines().forEach(rsl::append);
+            in.lines().forEach(s ->
+                    rsl.append(s).append(System.lineSeparator()));
         }
-        assertThat(rsl.toString(), is("10:57:01 ; 11:02:02"));
+        assertThat(rsl.toString(), is("10:57:01 ; 11:02:02\r\n"));
 
     }
 }

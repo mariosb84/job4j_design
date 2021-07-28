@@ -33,8 +33,10 @@ public class AnalizyTest {
             in.lines().forEach(s ->
                     rsl.append(s).append(System.lineSeparator()));
         }
-        assertThat(rsl.toString(), is("10:57:01 ; 10:59:01\r\n" +
-                "11:01:02 ; 11:02:02\r\n"));
+        //assertThat(rsl.toString(), is("10:57:01 ; 10:59:01\r\n" +
+                //"11:01:02 ; 11:02:02\r\n"));
+        assertThat(rsl.toString(), is("10:57:01 ; 10:59:01" + System.lineSeparator() +
+                "11:01:02 ; 11:02:02" + System.lineSeparator()));
     }
     @Test
     public void unavailableSecond() throws IOException {
@@ -56,7 +58,8 @@ public class AnalizyTest {
             in.lines().forEach(s ->
                     rsl.append(s).append(System.lineSeparator()));
         }
-        assertThat(rsl.toString(), is("10:57:01 ; 11:02:02\r\n"));
+        //assertThat(rsl.toString(), is("10:57:01 ; 11:02:02\r\n"));
+        assertThat(rsl.toString(), is("10:57:01 ; 11:02:02" + System.lineSeparator()));
 
     }
 }

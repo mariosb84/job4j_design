@@ -12,11 +12,12 @@ public class ArgsName {
         return values.get(key);
     }
 
-    private void parse(String[] args) {
+        private void parse(String[] args) {
         /* TODO parse args to values. */
         Arrays.stream(args)
                 .filter(s -> !s.isEmpty())
                 .map(s -> s.substring(1))
+                //.map(s -> s.split("="))
                 .map(s -> s.split("="))
                 .filter(s -> {
                     if (s.length != 2) {

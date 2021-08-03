@@ -39,24 +39,24 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
-      /*  packSingleFile(
+        packSingleFile(
                 new File("./pom.xml"),
                 new File("./pom.zip")
-        );*/
+        );
         if (args.length != 3) {
             throw new IllegalArgumentException("Root folder is null, extension is null, target package is null."
                     + " Usage java -jar pack.jar -d=directory -e=class -o=file.zip.");
         }
         ArgsName argsName = ArgsName.of(args);
-        Path source = Paths.get(argsName.get(args[0]));
-        File file = new File(argsName.get(args[2]));
-        File sourceDirectory = new File(argsName.get(args[0]));
+        Path source = Paths.get(argsName.get("d"));
+        File file = new File(argsName.get("o"));
+        File sourceDirectory = new File(argsName.get("d"));
         if (!sourceDirectory.isDirectory()) {
             throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
         }
-        List<Path> sourceList = Search.search(source, p -> p.toFile()
+                List<Path> sourceList = Search.search(source, p -> !p.toFile()
                 .getName()
-                .endsWith(argsName.get(args[1])));
+        .endsWith(argsName.get("e")));
 packFiles(pathToFile(sourceList), file);
     }
     private static List<File> pathToFile(List<Path> list) {

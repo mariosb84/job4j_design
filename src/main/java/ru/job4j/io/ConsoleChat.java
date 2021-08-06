@@ -51,7 +51,7 @@ public class ConsoleChat {
     }
 
     public static void main(String[] args) {
-        ConsoleChat cc = new ConsoleChat("", "");
+        ConsoleChat cc = new ConsoleChat("ConsoleChatText", "ConsoleChatBotAnswers");
         cc.run();
     }
 }

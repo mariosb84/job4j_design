@@ -1,8 +1,10 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ConsoleChat {
 
@@ -18,8 +20,35 @@ public class ConsoleChat {
     }
 
     public void run() {
-
-    }
+        List<String> list = readPhrases();
+        List<String> log = new ArrayList<>();
+        String userQuestion = "";
+        boolean startStopBotAnswers = true;
+        try (BufferedReader br = new BufferedReader(new
+                InputStreamReader(System.in, StandardCharsets.UTF_8))) {
+            do {
+                userQuestion = br.readLine();
+                log.add(String.format("-User: %s%s",
+                        userQuestion, System.lineSeparator() + System.lineSeparator()));
+                if (userQuestion.equals(STOP)) {
+                    startStopBotAnswers = false;
+                }
+                if (userQuestion.equals(CONTINUE)) {
+                    startStopBotAnswers = true;
+                }
+                if (startStopBotAnswers) {
+                    int i = new Random().nextInt(list.size());
+                    String botAnswer = list.get(i);
+                    log.add(String.format("-Bot: %s%s",
+                            botAnswer, System.lineSeparator() + System.lineSeparator()));
+                    System.out.println(botAnswer);
+                }
+            } while (!(userQuestion.equals(OUT)));
+            saveLog(log);
+        } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
 
     private List<String> readPhrases() {
         ArrayList<String> list = new ArrayList<>();
@@ -35,13 +64,11 @@ public class ConsoleChat {
     }
 
     private void saveLog(List<String> log) {
-        try (PrintWriter out = new PrintWriter(
-                new BufferedOutputStream(
-                        new FileOutputStream(path)
-                ))) {
+        try (BufferedWriter out = new BufferedWriter(
+                new FileWriter(path, StandardCharsets.UTF_8)
+                )) {
             for (String s : log) {
                 if (s != null) {
-                    out.printf("%s%n", s);
                     out.write(s);
                 }
             }
@@ -50,7 +77,7 @@ public class ConsoleChat {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ConsoleChat cc = new ConsoleChat("ConsoleChatText", "ConsoleChatBotAnswers");
         cc.run();
     }

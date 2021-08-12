@@ -1,19 +1,18 @@
 package ru.job4j.io;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
-public class CSVReader {
+public class MyCSVReader {
     private final String path;
     private final String delimiter;
     private final String out;
     private final String filter;
 
-    public CSVReader(String path, String delimiter, String out, String filter) {
+    public MyCSVReader(String path, String delimiter, String out, String filter) {
         this.path = path;
         this.delimiter = delimiter;
         this.out = out;
@@ -22,26 +21,30 @@ public class CSVReader {
 
 
     public static void main(String[] args) {
-        CSVReader csvReader = new CSVReader("sourceCsvFileScanner.csv", "; ",
+        MyCSVReader myCsvReader = new MyCSVReader("sourceCsvFileScanner.csv", "; ",
                 "targetCsvFileScanner.csv", "name, age");
-        csvReader.writeCsv("name; age; birthDate; education; children"
+        myCsvReader.writeCsv("name; age; birthDate; education; children"
                 + System.lineSeparator()
-                            + "Ivan; 30; 20.05.1991; higher; one"
+                + "Ivan; 30; 20.05.1991; higher; one"
                 + System.lineSeparator()
-                            + "Oleg; 40; 20.05.1981; average; two"
+                + "Oleg; 40; 20.05.1981; average; two"
                 + System.lineSeparator()
-                            + "Petr; 50; 20.05.1971; professional; three"
+                + "Petr; 50; 20.05.1971; professional; three"
                 + System.lineSeparator()
-                            + "Pavel; 100; 20.05.1921; no; five");
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(csvReader.out))) {
-            var data = csvReader.readCsv();
-            var scanner = new Scanner
-                    (new ByteArrayInputStream(data.getBytes()))
-                    .useDelimiter(csvReader.delimiter);
-            scanner.findInLine(csvReader.filter);
+                + "Pavel; 100; 20.05.1921; no; five");
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(myCsvReader.out))) {
+            var data = myCsvReader.readCsv();
+            Scanner scanner = new Scanner(new ByteArrayInputStream(data.getBytes()))
+            .useDelimiter(myCsvReader.delimiter);
             while (scanner.hasNext()) {
                 out.write(scanner.next() + " " + System.lineSeparator());
                 //System.out.println(Arrays.toString(scanner.toString().getBytes(StandardCharsets.UTF_8)));
+            }
+            CSVReader reader = new CSVReader(new FileReader(myCsvReader.path), ',' , '"' , 1);
+            //Read CSV line by line and use the string array as you want
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                    System.out.println(Arrays.toString(nextLine));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,8 +66,8 @@ public class CSVReader {
 
     private void writeCsv(String s) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(path))) {
-                out.write(s);
-            } catch (IOException ioException) {
+            out.write(s);
+        } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }

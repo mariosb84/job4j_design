@@ -22,42 +22,40 @@ public class MyCSVReader {
 
     public static void main(String[] args) {
         MyCSVReader myCsvReader = new MyCSVReader("sourceCsvFileScanner.csv", "; ",
-                "targetCsvFileScanner.csv", "name, age");
+                "targetCsvFileScanner.csv", "name");
         myCsvReader.writeCsv("name; age; birthDate; education; children;"
                 + System.lineSeparator()
-                + "Ivan; 30; 20.05.1991; higher; one;"
+                + " Ivan; 30; 20.05.1991; higher; one;"
                 + System.lineSeparator()
-                + "Oleg; 40; 20.05.1981; average; two;"
+                + " Oleg; 40; 20.05.1981; average; two;"
                 + System.lineSeparator()
-                + "Petr; 50; 20.05.1971; professional; three;"
+                + " Petr; 50; 20.05.1971; professional; three;"
                 + System.lineSeparator()
-                + "Pavel; 100; 20.05.1921; no; five");
+                + " Pavel; 100; 20.05.1921; no; five");
         try (PrintWriter out = new PrintWriter(new FileOutputStream(myCsvReader.out))) {
-            var data = myCsvReader.readCsv();
-            Scanner scanner = new Scanner(new ByteArrayInputStream(data.getBytes()))
-            .useDelimiter(myCsvReader.delimiter);
-            String[] nextLine = new String[100];
-            int count = 0;
-            while (scanner.hasNext()) {
-                if (scanner.next().endsWith(";"+"")) {
-                    out.write(System.lineSeparator());
-                }
-                //out.write(scanner.next() + " " + System.lineSeparator());
-                out.write(Arrays.toString(new String[]{nextLine[count] = scanner.next()})
-                        + " ");
-                count++;
-                //System.out.println(Arrays.toString(scanner.toString().getBytes(StandardCharsets.UTF_8)));
+            Scanner scanner = new Scanner(myCsvReader.path);
+            while (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                out.write(s);
             }
-            CSVReader reader = new CSVReader(new FileReader(myCsvReader.path), ',' , '"' , 1);
-            //Read CSV line by line and use the string array as you want
-            String[] nextLine2;
-            while ((nextLine2 = reader.readNext()) != null) {
-                    System.out.println(Arrays.toString(nextLine2));
+            System.out.println(Arrays.toString(myCsvReader.getRowsColsNo()));
+            System.out.println();
+            System.out.println(Arrays.toString(myCsvReader.getRowsColsString(myCsvReader.filter)));
+            System.out.println();
+                //System.out.println(Arrays.toString(scanner.toString().getBytes(StandardCharsets.UTF_8)));
+            BufferedReader br = new BufferedReader(new FileReader(myCsvReader.path));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] cols = line.split(myCsvReader.delimiter);
+                System.out.println("Column 0 = " + cols[0] + " , Column 1 = " + cols[1]);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+
 
     private String readCsv() {
         StringBuilder builder = new StringBuilder();
@@ -78,6 +76,52 @@ public class MyCSVReader {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+    }
+    private int[] getRowsColsNo() {
+        int rows = 0;
+        int cols = 0;
+        String InputLine;
+        try {
+            Scanner scanIn = new Scanner(new BufferedReader(
+                    new FileReader(this.path)));
+            scanIn.useDelimiter(",");
+            while (scanIn.hasNextLine()) {
+                InputLine = scanIn.nextLine();
+                String[] InArray = InputLine.split(";");
+                rows++;
+                cols = InArray.length;
+            }
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        return new int[] { rows, cols };
+    }
+    private String[] getRowsColsString(String filter) {
+        String[] TargetArray = new String[100];
+        int rows = 0;
+        int cols = 0;
+        String InputLine;
+        try {
+            Scanner scanIn = new Scanner(new BufferedReader(
+                    new FileReader(this.path)));
+            scanIn.useDelimiter(",");
+            while (scanIn.hasNextLine()) {
+                InputLine = scanIn.nextLine();
+                String[] InArray = InputLine.split(";");
+                for (String ignored : InArray) {
+                    if (InArray[rows].equals(filter)) {
+                        TargetArray[rows] = InArray[rows];
+                    }
+                    rows++;
+                }
+                cols = InArray.length;
+            }
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        return TargetArray;
     }
 
 }

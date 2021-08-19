@@ -3,7 +3,9 @@ package ru.job4j.io;
 import au.com.bytecode.opencsv.CSVReader;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class MyCSVReader {
@@ -29,8 +31,8 @@ public class MyCSVReader {
                 + System.lineSeparator()
                 + " Oleg; 40; 20.05.1981; average; two;"
                 + System.lineSeparator()
-                + " Petr; 50; 20.05.1971; professional; three;"
-                + System.lineSeparator()
+                /*+ " Petr; 50; 20.05.1971; professional; three;"
+                + System.lineSeparator()*/
                 + " Pavel; 100; 20.05.1921; no; five");
         try (PrintWriter out = new PrintWriter(new FileOutputStream(myCsvReader.out))) {
             Scanner scanner = new Scanner(myCsvReader.path);
@@ -38,17 +40,17 @@ public class MyCSVReader {
                 String s = scanner.nextLine();
                 out.write(s);
             }
-            System.out.println(Arrays.toString(myCsvReader.getRowsColsNo()));
+            //System.out.println(Arrays.toString(myCsvReader.getColumnsStringsNo()));
             System.out.println();
-            System.out.println(Arrays.toString(myCsvReader.getRowsColsString(myCsvReader.filter)));
+            myCsvReader.getColumnsStringsString(myCsvReader.filter);
             System.out.println();
                 //System.out.println(Arrays.toString(scanner.toString().getBytes(StandardCharsets.UTF_8)));
-            BufferedReader br = new BufferedReader(new FileReader(myCsvReader.path));
+            /*BufferedReader br = new BufferedReader(new FileReader(myCsvReader.path));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] cols = line.split(myCsvReader.delimiter);
                 System.out.println("Column 0 = " + cols[0] + " , Column 1 = " + cols[1]);
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,51 +79,57 @@ public class MyCSVReader {
             ioException.printStackTrace();
         }
     }
-    private int[] getRowsColsNo() {
-        int rows = 0;
-        int cols = 0;
-        String InputLine;
+    private int[] getColumnsStringsNo() {
+        int columns = 0;
+        int strings = 0;
+        String inputLine;
         try {
             Scanner scanIn = new Scanner(new BufferedReader(
                     new FileReader(this.path)));
             scanIn.useDelimiter(",");
             while (scanIn.hasNextLine()) {
-                InputLine = scanIn.nextLine();
-                String[] InArray = InputLine.split(";");
-                rows++;
-                cols = InArray.length;
+                inputLine = scanIn.nextLine();
+                String[] inArray = inputLine.split(";");
+                columns++;
+                strings = inArray.length;
             }
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        return new int[] { rows, cols };
+        return new int[] {columns, strings };
     }
-    private String[] getRowsColsString(String filter) {
-        String[] TargetArray = new String[100];
-        int rows = 0;
-        int cols = 0;
-        String InputLine;
+    private void getColumnsStringsString(String filter) {
+        String inputLine;
+        boolean writeEnable = false;
+        int i;
         try {
             Scanner scanIn = new Scanner(new BufferedReader(
                     new FileReader(this.path)));
             scanIn.useDelimiter(",");
             while (scanIn.hasNextLine()) {
-                InputLine = scanIn.nextLine();
-                String[] InArray = InputLine.split(";");
-                for (String ignored : InArray) {
-                    if (InArray[rows].equals(filter)) {
-                        TargetArray[rows] = InArray[rows];
+                inputLine = scanIn.nextLine();
+                String[] inArray = inputLine.split(this.delimiter);
+                for (i = 0; i < inArray.length; i++) {
+                    if (inArray[i].equals(filter)) {
+                        writeEnable = true;
+                        break;
                     }
-                    rows++;
+                    /*if (writeEnable) {
+                        System.out.println("Column " + i + " = " + inArray[i]);
+                    }*/
                 }
-                cols = InArray.length;
+
+                if (writeEnable) {
+                    System.out.println("Column " + i + " = " + inArray[i]);
+                } else {
+                    System.out.println("filter not found");
+                }
             }
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        return TargetArray;
     }
 
 }

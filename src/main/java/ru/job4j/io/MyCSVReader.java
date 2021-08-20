@@ -44,7 +44,7 @@ public class MyCSVReader {
             System.out.println();
             myCsvReader.getColumnsStringsString(myCsvReader.filter);
             System.out.println();
-                //System.out.println(Arrays.toString(scanner.toString().getBytes(StandardCharsets.UTF_8)));
+            //System.out.println(Arrays.toString(scanner.toString().getBytes(StandardCharsets.UTF_8)));
             /*BufferedReader br = new BufferedReader(new FileReader(myCsvReader.path));
             String line;
             while ((line = br.readLine()) != null) {
@@ -110,21 +110,15 @@ public class MyCSVReader {
             while (scanIn.hasNextLine()) {
                 inputLine = scanIn.nextLine();
                 String[] inArray = inputLine.split(this.delimiter);
-                for (i = 0; i < inArray.length; i++) {
-                    if (inArray[i].equals(filter)) {
-                        writeEnable = true;
+                for (i = 0; i < inArray.length - 1; i++) {
+                    if (writeEnable = inArray[i].equals(filter)){
                         break;
                     }
-                    /*if (writeEnable) {
-                        System.out.println("Column " + i + " = " + inArray[i]);
-                    }*/
                 }
-
-                if (writeEnable) {
+                if (writeEnable){
                     System.out.println("Column " + i + " = " + inArray[i]);
-                } else {
-                    System.out.println("filter not found");
                 }
+                System.out.println(writeEnable);
             }
 
         } catch (IOException ioException) {

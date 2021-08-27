@@ -1,1 +1,4 @@
-Column 1 = 100
+name;age;
+Ivan;30;
+Oleg;40;
+Pavel;100;

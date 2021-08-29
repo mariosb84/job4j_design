@@ -31,7 +31,7 @@ public class ArgsName {
         ArgsName names = new ArgsName();
         names.parse(args);
         if (args.length == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Args length == 0!!!");
         }
         return names;
     }

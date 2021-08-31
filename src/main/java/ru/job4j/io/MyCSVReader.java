@@ -34,7 +34,7 @@ public class MyCSVReader {
                 + "Pavel;100;20.05.1921;no;five", myCsvReader.path);
         myCsvReader.getColumnsStrings();
     }
-    private void getColumnsStrings() {
+    public void getColumnsStrings() {
         StringBuilder builder = new StringBuilder();
         ArrayList<Integer> numberColumn = new ArrayList<>();
         String inputLine;
@@ -79,7 +79,7 @@ public class MyCSVReader {
         }
         return out.toString();
     }
-    private void writeCsv(String s, String path) {
+   public void writeCsv(String s, String path) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(path))) {
             out.write(s);
         } catch (IOException ioException) {

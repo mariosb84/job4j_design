@@ -19,8 +19,6 @@ public class MyCSVReaderTest {
                 argsName.get("out"), argsName.get("filter"));
         myCsvReader.writeCsv("name;age;birthDate;education;children;"
                 + System.lineSeparator()
-                + "Ivan;30;20.05.1991;higher;one;"
-                + System.lineSeparator()
                 + "Oleg;40;20.05.1981;average;two;"
                 + System.lineSeparator()
                 + "Pavel;100;20.05.1921;no;five", argsName.get("path"));
@@ -34,6 +32,6 @@ public class MyCSVReaderTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertThat(list.size()), is("name");
+        assertThat((list.get(0)), is("name;age;"));
     }
 }

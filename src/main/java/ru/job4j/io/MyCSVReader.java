@@ -47,7 +47,7 @@ public class MyCSVReader {
             while (scanIn.hasNextLine()) {
                 inputLine = scanIn.nextLine();
                 String[] inArray = inputLine.split(this.delimiter);
-                String[] filterArr = this.filter.split(",");
+                    String[] filterArr = this.filter.split(",");
                 for (i = 0; i < inArray.length; i++) {
                     for (l = 0; l < filterArr.length; l++) {
                         if (inArray[i].equals(filterArr[l])) {

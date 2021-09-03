@@ -79,7 +79,7 @@ public class MyCSVReader {
         }
         return out.toString();
     }
-   public void writeCsv(String s, String path) {
+    public void writeCsv(String s, String path) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(path))) {
             out.write(s);
         } catch (IOException ioException) {

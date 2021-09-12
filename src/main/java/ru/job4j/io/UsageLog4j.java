@@ -29,7 +29,7 @@ public class UsageLog4j {
         long f = 5L;
         boolean g = true;
         char h = 'a';
-        LOG.debug("8 variables : int a : {}, byte b : {}, short c : {}, float d : {}, double e : {}, long f : {}, boolean g : {}, char h : {}",a, b, c, d, e, f, g, h);
+        LOG.debug("8 variables : int a : {}, byte b : {}, short c : {}, float d : {}, double e : {}, long f : {}, boolean g : {}, char h : {}", a, b, c, d, e, f, g, h);
 
     }
 }

@@ -22,15 +22,18 @@ public class EchoServer {
                         System.out.println(str);
                         if (str.contains("Exit")) {
                             System.out.println("Server is closed");
+                            out.write("HTTP/1.1 400 OK\r\n\r\n".getBytes());
                             server.close();
                             break;
                         }
                         if (str.contains("Hello")) {
                             out.write("Hello!\r\n\r\n".getBytes());
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             break;
                         }
                         if (!str.contains("Hello") && !(str.contains("Exit"))) {
                             out.write("What?\r\n\r\n".getBytes());
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             break;
                         }
                     }

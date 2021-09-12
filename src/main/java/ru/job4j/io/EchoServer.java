@@ -3,7 +3,6 @@ package ru.job4j.io;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,10 +17,8 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    //out.write("Hello, dear friend.\r\n\r\n".getBytes());
-                    //for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                     String str = in.readLine();
-                    while (str != null && !str.isEmpty()) {
+                        while (in.ready()) {
                         System.out.println(str);
                         if (str.contains("Exit")) {
                             System.out.println("Server is closed");
@@ -39,12 +36,10 @@ public class EchoServer {
                     }
                     out.flush();
                 } catch (Exception e) {
-                    //e.printStackTrace();
                     LOG.error("Exception in log OutputStream out", e);
                 }
             }
         } catch (Exception e) {
-            //e.printStackTrace();
             LOG.error("Exception in log ServerSocket server", e);
         }
     }

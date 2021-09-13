@@ -11,7 +11,7 @@ public class JsonExample {
     private final Car car;
     private final String[] history;
 
-    public JsonExample(boolean onSale, int price,String name, Car car, String... history) {
+    public JsonExample(boolean onSale, int price, String name, Car car, String... history) {
         this.onSale = onSale;
         this.price = price;
         this.name = name;

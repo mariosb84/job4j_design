@@ -10,7 +10,9 @@ public class CarJaxb {
     @XmlAttribute
     private String colour;
 
-    public CarJaxb() {}
+    public CarJaxb() {
+
+    }
 
     public CarJaxb(int yearOfManufacture, String colour) {
         this.yearOfManufacture = yearOfManufacture;

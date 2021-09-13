@@ -25,9 +25,11 @@ public class JaxbExample {
     @XmlElement(name = "history")
     private  String[] historys;
 
-    public JaxbExample() {}
+    public JaxbExample() {
 
-    public JaxbExample(boolean onSale, int price,String name, CarJaxb car, String... historys) {
+    }
+
+    public JaxbExample(boolean onSale, int price, String name, CarJaxb car, String... historys) {
         this.onSale = onSale;
         this.price = price;
         this.name = name;

@@ -1,0 +1,1 @@
+delete from sports WHERE name = 'hokkey';

@@ -52,24 +52,24 @@ public class JaxbExample {
                 "chevrolet",
                 new CarJaxb(2001, "black"),
                 "Not broken", "One owner");
-        // Получаем контекст для доступа к АПИ
+        /* Получаем контекст для доступа к АПИ*/
         JAXBContext context = JAXBContext.newInstance(JaxbExample.class);
-        // Создаем сериализатор
+        /* Создаем сериализатор*/
         Marshaller marshaller = context.createMarshaller();
-        // Указываем, что нам нужно форматирование
+        /* Указываем, что нам нужно форматирование*/
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         String xml = "";
         try (StringWriter writer = new StringWriter()) {
-            // Сериализуем
+            /* Сериализуем*/
             marshaller.marshal(jaxbExample, writer);
             xml = writer.getBuffer().toString();
             System.out.println("сериализуем:");
             System.out.println(xml);
         }
-        // Для десериализации нам нужно создать десериализатор
+        /* Для десериализации нам нужно создать десериализатор*/
         Unmarshaller unmarshaller = context.createUnmarshaller();
         try (StringReader reader = new StringReader(xml)) {
-            // десериализуем
+            /* десериализуем*/
             JaxbExample result = (JaxbExample) unmarshaller.unmarshal(reader);
             System.out.println("десериализуем:");
             System.out.println(result);

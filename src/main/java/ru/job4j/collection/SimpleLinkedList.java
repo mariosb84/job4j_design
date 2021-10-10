@@ -78,7 +78,6 @@ public class SimpleLinkedList<E> implements List<E> {
 
             @Override
             public boolean hasNext() {
-                //return current != lstNode;
                 return  position < size;
             }
 

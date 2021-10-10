@@ -18,7 +18,7 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 if (duplicate.contains(fileProperty)) {
     System.out.println(file.toAbsolutePath());
     System.out.println("Duplicate is found!!!");
-    //System.out.println("Duplicate is empty: " + duplicate.isEmpty());
+    /*System.out.println("Duplicate is empty: " + duplicate.isEmpty());*/
 } else {
     duplicate.add(fileProperty);
 }

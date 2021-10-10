@@ -20,7 +20,7 @@ public class RevLinked<T> implements Iterable<T> {
     }
 
     public boolean revert() {
-        //TODO impl reverts of linked list.
+        /*TODO impl reverts of linked list.*/
         boolean result = false;
         Node<T> current = head;
         Node<T> beforeCurrent = null, afterCurrent;

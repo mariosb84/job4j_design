@@ -8,10 +8,8 @@ public class User {
 
     private String name;
     private int children;
-    //private Calendar birthday;
     private int birthday;
 
-    //public User(String name, int children, Calendar birthday) {
     public User(String name, int children, int birthday) {
         this.name = name;
         this.children = children;
@@ -37,8 +35,6 @@ public class User {
     }
 
     public static void main(String[] args) {
-        //User userOne = new User("User", 10, Calendar.getInstance());
-        //User userTwo = new User("User", 10, Calendar.getInstance());
         User userOne = new User("User", 10, 5);
         User userTwo = new User("User", 10, 5);
         HashMap<User, Object> map = new HashMap<>();

@@ -29,7 +29,7 @@ public class AnalizyTest {
         analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder rsl = new StringBuilder();
         try (BufferedReader in = new BufferedReader(new FileReader(target))) {
-            //in.lines().forEach(rsl::append);
+            /*in.lines().forEach(rsl::append)*/
             in.lines().forEach(s ->
                     rsl.append(s).append(System.lineSeparator()));
         }
@@ -52,7 +52,7 @@ public class AnalizyTest {
         analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder rsl = new StringBuilder();
         try (BufferedReader in = new BufferedReader(new FileReader(target))) {
-           // in.lines().forEach(rsl::append);
+           /* in.lines().forEach(rsl::append)*/
             in.lines().forEach(s ->
                     rsl.append(s).append(System.lineSeparator()));
         }

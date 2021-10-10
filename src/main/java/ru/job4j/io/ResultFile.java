@@ -9,7 +9,7 @@ public class ResultFile {
                 for (int k = 1; k < 11; k++) {
                     out.write((k * i + "  ").getBytes());
                 }
-               // out.write("\n".getBytes());
+               /* out.write("\n".getBytes())*/
                 out.write(System.lineSeparator().getBytes());
             }
         } catch (Exception e) {

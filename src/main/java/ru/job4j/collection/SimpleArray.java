@@ -12,7 +12,6 @@ public class SimpleArray<T> implements Iterable<T> {
     }
     public void add(T model) {
         if (index >= capacity) {
-            //container = new Object[capacity * 2];
             container = Arrays.copyOf(container, capacity * 2);
             capacity *= 2;
         }

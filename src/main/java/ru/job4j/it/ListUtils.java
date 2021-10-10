@@ -34,7 +34,6 @@ public class ListUtils {
     public static <T> void removeIf(List<T> list, Predicate<T> filter) {
         ListIterator<T> i = list.listIterator();
         while (i.hasNext()) {
-            //if (!filter.test(i.next())) {
             if (filter.test(i.next())) {
                 i.remove();
             }

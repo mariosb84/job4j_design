@@ -19,14 +19,14 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
-       // gen.printBoundedWildCard(first);                НЕ КОМПИЛИРУЕТСЯ
+       /* gen.printBoundedWildCard(first);                НЕ КОМПИЛИРУЕТСЯ*/
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-       // gen.printLowerBoundedWildCard(third);           НЕ КОМПИЛИРУЕТСЯ
+       /* gen.printLowerBoundedWildCard(third);           НЕ КОМПИЛИРУЕТСЯ*/
     }
 
     public void printObject(List<?> list) {

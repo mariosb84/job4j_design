@@ -60,7 +60,6 @@ public class MatrixIt implements Iterator<Integer> {
         System.out.println(it.hasNext());
         System.out.println(it.row);
         System.out.println(it.next());
-        //System.out.println(it.next());
         /*System.out.println(it.data.length);
         System.out.println(it.data[1].length);
         System.out.println(Arrays.toString(it.data[0]));

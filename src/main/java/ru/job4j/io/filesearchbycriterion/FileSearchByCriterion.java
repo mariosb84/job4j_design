@@ -33,7 +33,7 @@ public class FileSearchByCriterion {
         List<Path> result = search(start, fileSearchByCriterion.searchChoice(argsName.get("n")));
         fileSearchByCriterion.writeToFile(result, argsName.get("o"));
     }
-    private void writeToFile(List<Path> target, String path) {                                  // запись в файл
+    private void writeToFile(List<Path> target, String path) {                                  /* запись в фай*/
         try (BufferedWriter out = new BufferedWriter(new FileWriter(path))) {
             for (Path p : target) {
                 out.write(String.valueOf(p));

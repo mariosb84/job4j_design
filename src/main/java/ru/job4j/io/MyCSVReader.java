@@ -59,13 +59,13 @@ public class MyCSVReader {
                 if (writeEnable) {
                     String s = getOut(this.delimiter, numberColumn, inArray);
                     if (this.out.equals("stdout")) {
-                        System.out.println(s);                                                       // вывод в консоль
+                        System.out.println(s);                                                       /* вывод в консоль*/
                     }
                     builder.append(s).append(System.lineSeparator());
                 }
             }
             if (!(this.out.equals("stdout"))) {
-                writeCsv(builder.toString(), this.out);                                               // запись в файл
+                writeCsv(builder.toString(), this.out);                                               /*запись в файл*/
             }
 
         } catch (IOException ioException) {

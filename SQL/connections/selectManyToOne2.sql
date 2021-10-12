@@ -1,1 +1,1 @@
-select * from studentsFive where id in (select id from studentsFourName);
+select * from students where id in (select id from studentsName);

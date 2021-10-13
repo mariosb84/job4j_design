@@ -1,1 +1,1 @@
-select * from students where id in (select id from studentsName);
+select * from studentsGroup where id in (select id from students);

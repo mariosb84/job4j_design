@@ -1,2 +1,2 @@
-insert into studentsName(name, students_id) VALUES ('Igor', 1);
-insert into students(name) values ('student');
+insert into studentsGroup(name) VALUES ('TwentyOne');
+insert into students(name, studentsGroup_id) values ('Igor, 1');

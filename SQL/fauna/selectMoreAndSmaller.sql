@@ -1,0 +1,1 @@
+select * from fauna where avg_age >= 5000 and avg_age <=  20000;

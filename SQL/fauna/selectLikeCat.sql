@@ -1,1 +1,1 @@
-select * from fauna where name like '%cat%';
+select * from fauna where name like '%fish%';

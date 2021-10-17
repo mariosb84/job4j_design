@@ -1,1 +1,1 @@
-select * from fauna where avg_age >= 5000 and avg_age <=  20000;
+select * from fauna where avg_age between 10000 and 21000;

@@ -1,0 +1,1 @@
+select pe.name as Имя, pr.name as Профессия, pr.salaryValue as "Размер зарплаты" from people as pe join profession as pr on pe.profession_id = pr.id and pr.salaryValue < 2999;

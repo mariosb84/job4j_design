@@ -1,0 +1,1 @@
+select p.name as продукт_мороженное from type as t join product p on t.name LIKE '%Мороженое%' and p.type_id = t.id;

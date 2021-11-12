@@ -1,1 +1,0 @@
-select * from product where expired_date < '29.10.2021';

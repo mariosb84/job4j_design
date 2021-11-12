@@ -1,1 +1,0 @@
-select max(price) as макс_цена_продукта from product;

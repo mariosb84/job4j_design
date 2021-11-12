@@ -9,8 +9,11 @@ where p.name LIKE '%Мороженое%';
 select * 
 from product 
 where expired_date < current_date;
-select max(p.price) as самый_дорогой_продукт
-from product as p;
+select p.name as самый_дорогой_продукт, p.price as цена
+from product as p
+group by p.name, p.price
+having p.price = (select max(p.price)
+from product as p);
 select t.name, count(p.name) 
 from type as t 
 join product p 
@@ -31,4 +34,4 @@ having count(p.name) < 10;
 select p.name as название_продукта, t.name as тип_продукта 
 from product as p 
 join type t 
-on p.type_id = t.id;
+on p.type_id = t.id; 

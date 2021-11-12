@@ -1,1 +1,0 @@
-select t.name, p.name from type as t join product p on p.type_id = t.id

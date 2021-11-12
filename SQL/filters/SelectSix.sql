@@ -1,1 +1,0 @@
-select t.name as тип, p.name as название from type as t join product p on t.name LIKE '%СЫР%' and p.type_id = t.id or t.name LIKE '%МОЛОКО%' and p.type_id = t.id;

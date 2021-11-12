@@ -1,1 +1,0 @@
-select p.name as продукт_тип_сыр from type as t join product p on t.name LIKE '%СЫР%' and p.type_id = t.id;

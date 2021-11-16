@@ -8,7 +8,5 @@ insert into emploers(name, departments_id) values
 ('Nadya', 12),
 ('Nastya', null),
 ('Masha', null),
-('Nastya', null),
-('Masha', null),
 (null, 10),
 (null, 11);

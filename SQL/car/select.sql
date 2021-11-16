@@ -10,18 +10,18 @@ on c.engine_id = e.id
 join transmission t
 on c.transmission_id = t.id;
 
-select  cs.name as кузов
+select  cs.name as неиспользуемый_тип_кузова
 from carcase cs
-left join car c
+join car c
 on cs.id = c.carcase_id
-where c.carcase_id is null;
-select  e.name as двигатель
+where c.name is null;
+select  e.name as неиспользуемый_тип_двигателя
 from engine e
-left join car c
+join car c
 on e.id = c.engine_id
-where c.engine_id is null;
-select  t.name as коробка
+where c.name is null;
+select  t.name as неиспользуемый_тип_коробки
 from transmission t
-left join car c
+join car c
 on t.id = c.transmission_id
-where c.transmission_id is null;
+where c.name is null;

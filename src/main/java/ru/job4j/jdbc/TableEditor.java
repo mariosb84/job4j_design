@@ -2,6 +2,7 @@ package ru.job4j.jdbc;
 
 import ru.job4j.io.Config;
 
+import java.io.FileReader;
 import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
@@ -21,8 +22,20 @@ public class TableEditor implements AutoCloseable {
         connection = null;
     }
 
-    public void createTable(String tableName) {
+    public void createTable(String tableName) throws Exception {
+        try (Connection connection = getConnection()) {
+            try (Statement statement = connection.createStatement()) {
+                String sql = String.format(
+                        "create table if not exists demo_table(%s, %s);",
+                        "",
+                        ""
+                );
+                statement.execute(sql);
+                System.out.println(getTableScheme(connection, tableName));
+            }
+        }
     }
+
 
     public void dropTable(String tableName) {
     }
@@ -67,17 +80,12 @@ public class TableEditor implements AutoCloseable {
         return buffer.toString();
     }
     public static void main(String[] args) throws Exception {
-        try (Connection connection = getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                String sql = String.format(
-                        "create table if not exists demo_table(%s, %s);",
-                        "id serial primary key",
-                        "name text"
-                );
-                statement.execute(sql);
-                System.out.println(getTableScheme(connection, "demo_table"));
-            }
-        }
+        String s = "NewTable";
+        String path = "app.properties";
+        Properties properties = new Properties();
+        properties.load(new FileReader(path));
+      TableEditor tableEditor = new TableEditor(properties);
+      tableEditor.createTable(s);
     }
 
     @Override

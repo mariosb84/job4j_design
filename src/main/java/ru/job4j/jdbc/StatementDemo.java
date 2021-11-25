@@ -22,9 +22,11 @@ public class StatementDemo {
         try (Connection connection = getConnection()) {
             try (Statement statement = connection.createStatement()) {
                 String sql = String.format(
-                        "create table if not exists demo_table(%s, %s);",
+                        "create table if not exists demo_table(%s, %s, %s, %s);",
                         "id serial primary key",
-                        "name text"
+                        "name text",
+                        "age int",
+                        "salary float"
                 );
                 statement.execute(sql);
                 System.out.println(getTableScheme(connection, "demo_table"));

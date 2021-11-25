@@ -26,21 +26,34 @@ public class TableEditor implements AutoCloseable {
         try (Connection connection = getConnection()) {
             try (Statement statement = connection.createStatement()) {
                 String sql = String.format(
-                        "create table if not exists demo_table(%s, %s);",
-                        "",
-                        ""
+                        "create table if not exists %s();", tableName
                 );
                 statement.execute(sql);
-                System.out.println(getTableScheme(connection, tableName));
             }
         }
     }
 
 
-    public void dropTable(String tableName) {
+    public void dropTable(String tableName) throws Exception {
+        try (Connection connection = getConnection()) {
+            try (Statement statement = connection.createStatement()) {
+                String sql = String.format(
+                        "drop table %s", tableName
+                );
+                statement.execute(sql);
+            }
+        }
     }
 
-    public void addColumn(String tableName, String columnName, String type) {
+    public void addColumn(String tableName, String columnName, String type) throws Exception {
+        try (Connection connection = getConnection()) {
+            try (Statement statement = connection.createStatement()) {
+                String sql = String.format(
+                        "alter table %s add (%s %s);", tableName, columnName, type
+                );
+                statement.execute(sql);
+            }
+        }
     }
 
     public void dropColumn(String tableName, String columnName) {
@@ -80,12 +93,16 @@ public class TableEditor implements AutoCloseable {
         return buffer.toString();
     }
     public static void main(String[] args) throws Exception {
-        String s = "NewTable";
+        String tableName = "new_table";
+        String columnName = "new_column";
+        String typeName = "text";
         String path = "app.properties";
         Properties properties = new Properties();
         properties.load(new FileReader(path));
       TableEditor tableEditor = new TableEditor(properties);
-      tableEditor.createTable(s);
+      //tableEditor.createTable(tableName);
+      //tableEditor.dropTable(tableName);
+        tableEditor.addColumn(tableName, columnName, typeName);
     }
 
     @Override

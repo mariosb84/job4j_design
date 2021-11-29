@@ -1,7 +1,5 @@
 package ru.job4j.jdbc;
 
-import ru.job4j.io.Config;
-
 import java.io.FileReader;
 import java.sql.*;
 import java.util.Properties;
@@ -11,15 +9,20 @@ public class TableEditor implements AutoCloseable {
 
     private Connection connection;
 
-    private Properties properties;
+    private final Properties properties;
 
-    public TableEditor(Properties properties) {
+    public TableEditor(Properties properties) throws SQLException, ClassNotFoundException {
         this.properties = properties;
         initConnection();
     }
 
-    private void initConnection() {
-        connection = null;
+    private void initConnection() throws ClassNotFoundException, SQLException {
+        String url = properties.getProperty("hibernate.connection.url");
+        String login = properties.getProperty("hibernate.connection.username");
+        String password = properties.getProperty("hibernate.connection.password");
+        String driver = properties.getProperty("hibernate.connection.driver_class");
+        Class.forName(driver);
+        connection =  DriverManager.getConnection(url, login, password);
     }
 
     public void createTable(String tableName) throws Exception {
@@ -50,24 +53,10 @@ public class TableEditor implements AutoCloseable {
                         tableName, columnName, newColumnName);
         generalMethod(sql);
     }
-    private static void generalMethod(String string) throws Exception {
-        try (Connection connection = getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                 statement.execute(string);
+    private void generalMethod(String string) throws Exception {
+            try (Statement statement = this.connection.createStatement()) {
+                statement.execute(string);
             }
-        }
-    }
-
-    private static Connection getConnection() throws Exception {
-        String path = "app.properties";
-        Config config = new Config(path);
-        config.load();
-        String url = config.value("hibernate.connection.url");
-        String login = config.value("hibernate.connection.username");
-        String password = config.value("hibernate.connection.password");
-        String driver = config.value("hibernate.connection.driver_class");
-        Class.forName(driver);
-        return DriverManager.getConnection(url, login, password);
     }
 
     public static String getTableScheme(Connection connection, String tableName) throws Exception {
@@ -98,15 +87,15 @@ public class TableEditor implements AutoCloseable {
         properties.load(new FileReader(path));
         TableEditor tableEditor = new TableEditor(properties);
         tableEditor.createTable(tableName);
-        System.out.println(getTableScheme(getConnection(), tableName));
+        System.out.println(getTableScheme(tableEditor.connection, tableName));
         tableEditor.dropTable(tableName);
-        System.out.println(getTableScheme(getConnection(), tableName));
+        System.out.println(getTableScheme(tableEditor.connection, tableName));
         tableEditor.addColumn(tableName, columnName, typeName);
-        System.out.println(getTableScheme(getConnection(), tableName));
+        System.out.println(getTableScheme(tableEditor.connection, tableName));
         tableEditor.dropColumn(tableName, columnName);
-        System.out.println(getTableScheme(getConnection(), tableName));
+        System.out.println(getTableScheme(tableEditor.connection, tableName));
         tableEditor.renameColumn(tableName, columnName, newColumnName);
-        System.out.println(getTableScheme(getConnection(), tableName));
+        System.out.println(getTableScheme(tableEditor.connection, tableName));
     }
 
     @Override

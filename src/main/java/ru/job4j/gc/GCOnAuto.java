@@ -4,8 +4,8 @@ public class GCOnAuto {
 /*-Xmx4m -Xms4m*/
     public static void main(String[] args) {
         GCDemo.info();
-        for (int i = 0; i < 2000000; i++) {
-           /* new User(i, "User_N_" + i);*/
+        for (int i = 0; i < 4000; i++) {
+            /*new User(i, "User_N_");*/
             new User();
             System.out.println(i);
         }

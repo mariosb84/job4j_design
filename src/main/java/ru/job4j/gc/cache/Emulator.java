@@ -1,14 +1,9 @@
 package ru.job4j.gc.cache;
 
-import ru.job4j.io.SearchFiles;
-
 import java.io.*;
-import java.nio.CharBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.Objects;
 
 public class Emulator {
 
@@ -16,11 +11,17 @@ public class Emulator {
 
 
     public static void main(String[] args) {
-        Emulator emulator = new Emulator();
-        DirFileCache dirFileCache = new DirFileCache("Names.txt");
-        dirFileCache.put("", "");
-        dirFileCache.get("");
-        dirFileCache.load("");
+       String dir = "Names.txt";
+           DirFileCache dirFileCache = new DirFileCache(dir);
+        System.out.println(dirFileCache.cache.toString());
+        //if (!Objects.equals(dirFileCache.cache.get(dir).get(), dir)) {
+            if (true) {
+            dirFileCache.load("123");
+        } else {
+            System.out.println(dirFileCache.cache.get(dir).get());
+        }
+        System.out.println(dirFileCache.cache.get(dir).get());
+        System.out.println(dirFileCache.cache.toString());
     }
 
     private void writeToFile(String path) {                                  /* запись в фай*/

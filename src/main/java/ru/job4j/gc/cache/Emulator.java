@@ -2,26 +2,20 @@ package ru.job4j.gc.cache;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class Emulator {
 
-    private  String directory;
-
-
     public static void main(String[] args) {
        String dir = "Names.txt";
+       Emulator emulator = new Emulator();
            DirFileCache dirFileCache = new DirFileCache(dir);
-        System.out.println(dirFileCache.cache.toString());
-        //if (!Objects.equals(dirFileCache.cache.get(dir).get(), dir)) {
-            if (true) {
-            dirFileCache.load("123");
+        if (!dirFileCache.cache.containsKey(dir)) {
+            dirFileCache.load(emulator.readFromFile(dir));
+            System.out.println("Cache is updated : ");
         } else {
-            System.out.println(dirFileCache.cache.get(dir).get());
+            System.out.println("Cache is not updated : ");
         }
         System.out.println(dirFileCache.cache.get(dir).get());
-        System.out.println(dirFileCache.cache.toString());
     }
 
     private void writeToFile(String path) {                                  /* запись в фай*/
@@ -34,7 +28,7 @@ public class Emulator {
         }
     }
 
-    private List<String> readFromFile(String path) {                          /* чтение из файла*/
+    private String readFromFile(String path) {                          /* чтение из файла*/
         ArrayList<String> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
            for (String s = in.readLine(); s != null; s = in.readLine()) {
@@ -44,7 +38,7 @@ public class Emulator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return list;
+        return list.toString();
     }
 
 }

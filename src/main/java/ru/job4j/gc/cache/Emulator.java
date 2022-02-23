@@ -9,24 +9,15 @@ public class Emulator {
         String dir = "Names.txt";
         String dir2 = "Address.txt";
         DirFileCache dirFileCache = new DirFileCache(pathFolder);
-        System.out.println("Cache before reading and put:");
         System.out.println(dirFileCache.cache.toString());
-        System.out.println("size: " + dirFileCache.cache.size());
         System.out.println();
-        System.out.println("Cache after reading and put:");
-        System.out.println();
-        System.out.println(dirFileCache.load(dir));
+        System.out.println(dirFileCache.get(dir));
         System.out.println();
         System.out.println(dirFileCache.cache.toString());
-        System.out.println("size: " + dirFileCache.cache.size());
         System.out.println();
-        System.out.println("Cache after reading and put:");
-        System.out.println();
-        System.out.println(dirFileCache.load(dir2));
+        System.out.println(dirFileCache.get(dir2));
         System.out.println();
         System.out.println(dirFileCache.cache.toString());
-        System.out.println("size: " + dirFileCache.cache.size());
-        System.out.println();
 
     }
 

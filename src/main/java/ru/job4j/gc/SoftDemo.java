@@ -64,7 +64,7 @@ public class SoftDemo {
             /* do something*/
             System.out.println(".....");
         }
-        /* work with strong*/
+        /* work with strong */
     }
 
 }

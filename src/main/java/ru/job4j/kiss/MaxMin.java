@@ -1,6 +1,5 @@
 package ru.job4j.kiss;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -18,16 +17,11 @@ public class MaxMin  {
     }
 
      private static <T> T maxMin(List<T> value, Comparator<T> comparator, Predicate<Integer> predicate) {
-         T result = null;
-         List<T> list = new ArrayList<>(List.copyOf(value));
-         for (int i = 0; i < list.size() - 1; i++) {
-             T t1 = list.get(i);
-             T t2 = list.get(i + 1);
-             if (predicate.test(comparator.compare(t1, t2))) {
-                 result = t1;
-                 list.set(i + 1, result);
-             } else {
-                 result = t2;
+          T result = value.get(0);
+         for (int i = 0; i <= value.size() - 1; i++) {
+             T t = value.get(i);
+             if (predicate.test(comparator.compare(t, result))) {
+                 result = t;
              }
          }
          return result;

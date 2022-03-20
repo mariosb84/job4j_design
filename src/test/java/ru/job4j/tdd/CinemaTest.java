@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
 public class CinemaTest {
 
 
-    @Test
+    /*@Test
     public void whenBuy() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
@@ -68,6 +68,6 @@ public class CinemaTest {
         cinema.add(new Session3D());
         List<Session> sessions = cinema.find(session -> false);
         assertThat(sessions.size(), is(0));
-    }
+    }*/
 
 }

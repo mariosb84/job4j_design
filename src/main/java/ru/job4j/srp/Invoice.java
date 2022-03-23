@@ -56,7 +56,7 @@ public class Invoice {
      * это еще одна распространенная ошибка.*/
 
     public void saveToFile(String filename) {
-        // Creates a file with given name and writes the invoice
+        /* Creates a file with given name and writes the invoice*/
     }
 
     /*

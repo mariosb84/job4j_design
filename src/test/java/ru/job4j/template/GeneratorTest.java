@@ -9,6 +9,7 @@ import static org.junit.Assert.assertThat;
 
 public class GeneratorTest {
 
+    @Ignore
     @Test
     public void whenOK() {
         Map<String, String> map = new HashMap<>();

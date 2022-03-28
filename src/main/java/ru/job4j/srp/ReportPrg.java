@@ -12,6 +12,22 @@ public class ReportPrg implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        return null;
+        StringBuilder text = new StringBuilder();
+        text.append("<!ECOTYPE HTML><html><head>")
+                .append("<title>HTML отчёт.</title></head>")
+                .append("<body><table>")
+                .append("<tr><th>Name</th><th>Hired</th>")
+                .append("<th>Fired</th><th>Salary</th></tr>");
+        for (Employee employee: store.findBy(filter)) {
+            text.append("<tr><td>")
+                    .append(employee.getName()).append("</td>").append("<td>")
+                    .append(employee.getFired()).append("</td>").append("<td>")
+                    .append(employee.getHired()).append("</td>").append("<td>")
+                    .append(employee.getSalary()).append("</td></tr>")
+                    .append("</table></body></html>")
+                    .append(System.lineSeparator());
+        }
+        return text.toString();
     }
+
 }

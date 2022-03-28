@@ -12,6 +12,18 @@ public class ReportAcc implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        return null;
+        StringBuilder text = new StringBuilder();
+        text.append("Name; Hired; Fired; SalaryModified;");
+        text.append(System.lineSeparator());
+        for (Employee employee : store.findBy(filter)) {
+            text.append(employee.getName()).append(";")
+                    .append(employee.getHired()).append(";")
+                    .append(employee.getFired()).append(";")
+                    .append(employee.getSalary() / 100.0).append("USD")
+                    .append(";")
+                    .append(System.lineSeparator());
+        }
+        return text.toString();
     }
+
 }

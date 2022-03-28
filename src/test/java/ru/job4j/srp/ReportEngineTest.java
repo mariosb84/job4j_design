@@ -30,14 +30,27 @@ public class ReportEngineTest {
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
-        Report engine = new ReportEngine(store);
-        String expect = "Name; Hired; Fired; Salary;" +
-                System.lineSeparator() +
-                worker.getName() + ";" +
-                worker.getHired() + ";" +
-                worker.getFired() + ";" +
-                worker.getSalary() + ";" +
-                System.lineSeparator();
+        Report engine = new ReportPrg(store);
+        String expect =
+                        "<!ECOTYPE HTML><html><head>" +
+                        "<title>HTML отчёт.</title></head>" +
+                        "<body><table>" +
+                        "<tr><th>Name</th><th>Hired</th>" +
+                        "<th>Fired</th><th>Salary</th></tr>" +
+                        "<tr><td>" +
+                         worker.getName() +
+                                "</td>"
+                                +"<td>" +
+                                worker.getFired() +
+                                "</td>" +
+                                "<td>" +
+                         worker.getHired() +
+                                "</td>" +
+                                "<td>" +
+                         worker.getSalary() +
+                                "</td></tr>" +
+                         "</table></body></html>" +
+                         System.lineSeparator();
         assertThat(engine.generate(em -> true), is(expect));
     }
 
@@ -73,7 +86,7 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report engine = new ReportAcc(store);
-        String expect = "Name; Hired; Fired; Salary;" +
+        String expect = "Name; Hired; Fired; SalaryModified;" +
                 System.lineSeparator() +
                 worker.getName() + ";" +
                 worker.getHired() + ";" +

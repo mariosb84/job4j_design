@@ -44,7 +44,7 @@ public class ReportEngineTest {
                                 + "<tr><td>"
                                 + worker.getName()
                                 + "</td>"
-                                +"<td>"
+                                + "<td>"
                                 + worker.getFired()
                                 + "</td>"
                                 + "<td>"

@@ -91,7 +91,7 @@ public class ReportEngineTest {
                 worker.getName() + ";" +
                 worker.getHired() + ";" +
                 worker.getFired() + ";" +
-                (worker.getSalary() / 100) +
+                (worker.getSalary() / ReportAcc.DOLLAR) +
                 "USD" + ";" +
                 System.lineSeparator();
         assertThat(engine.generate(em -> true), is(expect));

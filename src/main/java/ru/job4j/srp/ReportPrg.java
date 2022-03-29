@@ -23,10 +23,10 @@ public class ReportPrg implements Report {
                     .append(employee.getName()).append("</td>").append("<td>")
                     .append(employee.getFired()).append("</td>").append("<td>")
                     .append(employee.getHired()).append("</td>").append("<td>")
-                    .append(employee.getSalary()).append("</td></tr>")
-                    .append("</table></body></html>")
-                    .append(System.lineSeparator());
+                    .append(employee.getSalary()).append("</td></tr>");
         }
+        text.append("</table></body></html>");
+        text.append(System.lineSeparator());
         return text.toString();
     }
 

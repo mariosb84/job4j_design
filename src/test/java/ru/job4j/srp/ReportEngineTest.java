@@ -43,18 +43,16 @@ public class ReportEngineTest {
                                 + "<th>Fired</th><th>Salary</th></tr>"
                                 + "<tr><td>"
                                 + worker.getName()
-                                +
-                                "</td>"
+                                + "</td>"
                                 +"<td>"
                                 + worker.getFired()
                                 + "</td>"
-                                +
-                                "<td>"
+                                + "<td>"
                                 + worker.getHired()
                                 + "</td>"
                                 + "<td>"
-                                + worker.getSalary() +
-                                "</td></tr>"
+                                + worker.getSalary()
+                                + "</td></tr>"
                                 + "</table></body></html>"
                                 + System.lineSeparator();
         assertThat(engine.generate(em -> true), is(expect));
@@ -92,7 +90,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenNewGeneratedAccounting () {
+    public void whenNewGeneratedAccounting() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);

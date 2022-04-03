@@ -1,7 +1,10 @@
-package ru.job4j.template;
+package ru.job4j.ood;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import ru.job4j.ood.template.Generator;
+import ru.job4j.ood.template.GeneratorNew;
+
 import java.util.HashMap;
 import java.util.Map;
 import static org.hamcrest.Matchers.is;

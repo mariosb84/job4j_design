@@ -1,8 +1,7 @@
-package ru.job4j.srp;
+package ru.job4j.ood.srp;
 
 /* Класс, содержащий методы работы с моделью данных "Книга"  */
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

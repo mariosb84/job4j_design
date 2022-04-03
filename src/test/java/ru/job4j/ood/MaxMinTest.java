@@ -1,6 +1,8 @@
-package ru.job4j.kiss;
+package ru.job4j.ood;
 
 import org.junit.Test;
+import ru.job4j.ood.kiss.MaxMin;
+
 import java.util.Comparator;
 import java.util.List;
 

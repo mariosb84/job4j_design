@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import org.junit.Test;
 import ru.job4j.ood.srp.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ReportEngineTest {
@@ -112,4 +113,61 @@ public class ReportEngineTest {
                 + System.lineSeparator();
         assertThat(engine.generate(em -> true), is(expect));
     }
+
+    @Test
+    public void whenReportJSON() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        Report engine = new ReportJSON(store);
+        String expected = "[{\"name\":\"Ivan\",\"hired\":{\"year\":"
+                + worker.getHired().get(Calendar.YEAR)
+                + "," + "\"month\":"
+                + worker.getHired().get(Calendar.MONTH)
+                + "," + "\"dayOfMonth\":"
+                + worker.getHired().get(Calendar.DAY_OF_MONTH)
+                + "," + "\"hourOfDay\":"
+                + worker.getHired().get(Calendar.HOUR_OF_DAY)
+                + "," + "\"minute\":"
+                + worker.getHired().get(Calendar.MINUTE)
+                + "," + "\"second\":"
+                + worker.getHired().get(Calendar.SECOND)
+                + "}," + "\"fired\":{\"year\":"
+                + worker.getHired().get(Calendar.YEAR)
+                + "," + "\"month\":"
+                + worker.getHired().get(Calendar.MONTH)
+                + "," + "\"dayOfMonth\":"
+                + worker.getHired().get(Calendar.DAY_OF_MONTH)
+                + "," + "\"hourOfDay\":"
+                + worker.getHired().get(Calendar.HOUR_OF_DAY)
+                + "," + "\"minute\":"
+                + worker.getHired().get(Calendar.MINUTE)
+                + "," + "\"second\":"
+                + worker.getHired().get(Calendar.SECOND)
+                + "}," + "\"salary\":100.0}]";
+        assertThat(engine.generate(em -> true), is(expected));
+    }
+
+    @Test
+    public void whenReportXML() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat format =
+                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        Report engine = new ReportXML(store);
+        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<employees>\n"
+                + "    <employee>\n"
+                + "        <fired>" + format.format(worker.getHired().getTime()) + "</fired>\n"
+                + "        <hired>" + format.format(worker.getHired().getTime()) + "</hired>\n"
+                + "        <name>Ivan</name>\n"
+                + "        <salary>100.0</salary>\n"
+                + "    </employee>\n"
+                + "</employees>\n";
+        assertThat(engine.generate(em -> true), is(expect));
+    }
+
 }

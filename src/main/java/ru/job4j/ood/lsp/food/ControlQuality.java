@@ -1,7 +1,6 @@
 package ru.job4j.ood.lsp.food;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class ControlQuality {
 /*
@@ -14,16 +13,16 @@ public class ControlQuality {
         this.strategyStorage = strategyStorage;
         }
 
-        public void executeStrategyStorageFirst(List<Food> foods, Predicate<Food> p) {
-        strategyStorage.add(foods, p);
+        public boolean executeStrategyStorageFirst(Food food) {
+        return strategyStorage.accept(food);
         }
 
-    public List<Food> executeStrategyStorageSecond() {
-        return strategyStorage.giveAway();
+    public boolean executeStrategyStorageSecond(Food food) {
+        return strategyStorage.add(food);
         }
 
-    public void executeStrategyStorageThird(double discount) {
-        strategyStorage.addDiscount(discount);
+    public List<Food> executeStrategyStorageThird() {
+        return strategyStorage.findAll();
         }
 
     }

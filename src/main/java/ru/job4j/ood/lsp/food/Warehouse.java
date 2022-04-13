@@ -15,22 +15,23 @@ public class Warehouse implements StrategyStorage {
     }
 
     @Override
-    public void add(List<Food> foods, Predicate<Food> p) {
-        for (Food food : foods) {
-           if (food != null && p.test(food))  {
+    public boolean accept(Food food) {
+        Predicate<Food> p = f -> (Freshness.getFreshnessOfFood(f) > 75);
+        return food != null && p.test(food);
+    }
+
+    @Override
+    public boolean add(Food food) {
+           if (food != null && accept(food)) {
                this.warehouseStore.add(food);
+               return true;
            }
-        }
+        return false;
     }
 
     @Override
-    public void addDiscount(double discount) {
-
-    }
-
-    @Override
-    public List<Food> giveAway() {
-        return this.warehouseStore;
+    public List<Food> findAll() {
+        return List.copyOf(this.warehouseStore);
     }
 
 }

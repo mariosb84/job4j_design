@@ -15,22 +15,23 @@ public class Trash implements StrategyStorage {
     }
 
     @Override
-    public void add(List<Food> foods, Predicate<Food> p) {
-        for (Food food : foods) {
-            if (food != null && p.test(food))  {
-                this.trashStore.add(food);
-            }
+    public boolean accept(Food food) {
+        Predicate<Food> p = f -> (Freshness.getFreshnessOfFood(f) <= 0);
+        return food != null && p.test(food);
+    }
+
+    @Override
+    public boolean add(Food food) {
+        if (food != null && accept(food)) {
+            this.trashStore.add(food);
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void addDiscount(double discount) {
-
-    }
-
-    @Override
-    public List<Food> giveAway() {
-        return this.trashStore;
+    public List<Food> findAll() {
+        return List.copyOf(this.trashStore);
     }
 
 }

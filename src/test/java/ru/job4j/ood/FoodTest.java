@@ -34,8 +34,12 @@ public class FoodTest {
         @Test
         public void whenWarehouse() {
             ControlQuality controlQuality = new ControlQuality(new Warehouse(new ArrayList<>()));
-            controlQuality.executeStrategyStorageFirst(listOfFoods, f -> (Freshness.getFreshnessOfFood(f) > 75));
-            List<Food> rsl = controlQuality.executeStrategyStorageSecond();
+            for (Food food : listOfFoods) {
+                if (controlQuality.executeStrategyStorageFirst(food)) {
+                    controlQuality.executeStrategyStorageSecond(food);
+                }
+            }
+            List<Food> rsl = controlQuality.executeStrategyStorageThird();
             List<Food> expected = List.of(new Fruit("banana",
                     LocalDate.of(22, 5, 4),
                     LocalDate.of(22, 4, 10), 5.0, 0.0));
@@ -44,14 +48,20 @@ public class FoodTest {
 
     @Test
     public void whenShop() {
-        ControlQuality controlQuality = new ControlQuality(new Shop(new ArrayList<>()));
-        controlQuality.executeStrategyStorageFirst(listOfFoods, f -> ((Freshness.getFreshnessOfFood(f) <= 75)
-                && (Freshness.getFreshnessOfFood(f) >= 25)));
-        List<Food> rsl = controlQuality.executeStrategyStorageSecond();
+        ControlQuality controlQuality = new ControlQuality(new Shop(new ArrayList<>(), 50.0));
+        for (Food food : listOfFoods) {
+            if (controlQuality.executeStrategyStorageFirst(food)) {
+                controlQuality.executeStrategyStorageSecond(food);
+            }
+        }
+        List<Food> rsl = controlQuality.executeStrategyStorageThird();
         List<Food> expected = List.of(new Fruit("orange",
                 LocalDate.of(2022, 4, 22),
                 LocalDate.of(2022, 4, 1),
                 2.0, 0.0),
+                new Vegetables("tomato",
+                        LocalDate.of(22, 4, 14),
+                        LocalDate.of(22, 3, 30), 3.0, 50.0),
                 new Meat("beef",
                         LocalDate.of(22, 4, 22),
                         LocalDate.of(22, 4, 7), 50.0, 0.0));
@@ -59,25 +69,14 @@ public class FoodTest {
     }
 
     @Test
-    public void whenShopDiscount() {
-        ControlQuality controlQuality = new ControlQuality(new Shop(new ArrayList<>()));
-        controlQuality.executeStrategyStorageFirst(listOfFoods, f -> ((Freshness.getFreshnessOfFood(f) <= 25)
-                && (Freshness.getFreshnessOfFood(f) > 0)));
-        controlQuality.executeStrategyStorageThird(50.0);
-        List<Food> rsl = controlQuality.executeStrategyStorageSecond();
-        List<Food> expected = List.of(
-                new Vegetables("tomato",
-                        LocalDate.of(22, 4, 14),
-                        LocalDate.of(22, 3, 30), 3.0, 50.0)
-                );
-        assertThat(rsl, is(expected));
-    }
-
-    @Test
     public void whenTrash() {
         ControlQuality controlQuality = new ControlQuality(new Trash(new ArrayList<>()));
-        controlQuality.executeStrategyStorageFirst(listOfFoods, f -> (Freshness.getFreshnessOfFood(f) <= 0));
-        List<Food> rsl = controlQuality.executeStrategyStorageSecond();
+        for (Food food : listOfFoods) {
+            if (controlQuality.executeStrategyStorageFirst(food)) {
+                controlQuality.executeStrategyStorageSecond(food);
+            }
+        }
+        List<Food> rsl = controlQuality.executeStrategyStorageThird();
         List<Food> expected = List.of(
                 new Vegetables("potato",
                         LocalDate.of(22, 4, 4),

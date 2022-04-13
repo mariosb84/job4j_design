@@ -9,33 +9,41 @@ import java.util.function.Predicate;
 public class Shop implements StrategyStorage {
 
     private final List<Food> shopStore;
+    private final double discount;
 
-    public Shop(List<Food> shopStore) {
+    public Shop(List<Food> shopStore, double discount) {
         this.shopStore = shopStore;
+        this.discount = discount;
     }
 
     @Override
-    public void add(List<Food> foods, Predicate<Food> p) {
-        for (Food food : foods) {
-            if (food != null && p.test(food))  {
-                this.shopStore.add(food);
+    public boolean accept(Food food) {
+        Predicate<Food> p = f -> ((Freshness.getFreshnessOfFood(f) <= 75)
+                && (Freshness.getFreshnessOfFood(f) >= 25));
+        Predicate<Food> p2 = f2 -> ((Freshness.getFreshnessOfFood(f2) <= 25)
+                && (Freshness.getFreshnessOfFood(f2) > 0));
+            if (food != null && p.test(food)) {
+                return true;
             }
-        }
+            if (food != null && p2.test(food)) {
+                food.setDiscount(this.discount);
+                return true;
+            }
+        return false;
     }
 
     @Override
-    public void addDiscount(double discount) {
-        for (Food food : this.shopStore) {
-            if (food != null) {
-                food.setDiscount(discount);
-            }
+    public boolean add(Food food) {
+        if (food != null && accept(food)) {
+            this.shopStore.add(food);
+            return true;
         }
+        return false;
     }
 
-            @Override
-            public List<Food> giveAway() {
-                return this.shopStore;
-            }
-
+    @Override
+    public List<Food> findAll() {
+        return List.copyOf(this.shopStore);
+       }
 
     }

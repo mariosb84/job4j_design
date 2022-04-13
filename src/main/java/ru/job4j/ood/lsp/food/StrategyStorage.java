@@ -6,12 +6,13 @@ import java.util.function.Predicate;
  *
  * Strategy.java
  * */
+
 public interface StrategyStorage {
 
-void add(List<Food> foods, Predicate<Food> p);
+    boolean accept(Food food);
 
-void addDiscount(double discount);
+    boolean add(Food food);
 
-List<Food> giveAway();
+    List<Food> findAll();
 
 }

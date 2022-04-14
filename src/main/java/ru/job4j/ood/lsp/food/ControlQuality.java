@@ -7,23 +7,15 @@ public class ControlQuality {
 *
 * Context.java
 * */
-    private final StrategyStorage strategyStorage;
+    private final List<Storage> storage;
 
-    public ControlQuality(StrategyStorage strategyStorage) {
-        this.strategyStorage = strategyStorage;
+    public ControlQuality(List<Storage> storage) {
+        this.storage = storage;
         }
 
-        public boolean executeStrategyStorageFirst(Food food) {
-        return strategyStorage.accept(food);
-        }
-
-    public boolean executeStrategyStorageSecond(Food food) {
-        return strategyStorage.add(food);
-        }
-
-    public List<Food> executeStrategyStorageThird() {
-        return strategyStorage.findAll();
-        }
+    public void distribute(Food food) {
+        storage.forEach(s -> s.add(food));
+    }
 
     }
 

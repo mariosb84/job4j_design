@@ -1,20 +1,16 @@
 package ru.job4j.ood.lsp.food;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 /*
  *
  *  Shop.java
  * */
-public class Shop implements StrategyStorage {
+public class Shop implements Storage {
 
-    private final List<Food> shopStore;
-    private final double discount;
-
-    public Shop(List<Food> shopStore, double discount) {
-        this.shopStore = shopStore;
-        this.discount = discount;
-    }
+    private final List<Food> shopStore = new ArrayList<>();
+    private final static double DISCOUNT = 50.0;
 
     @Override
     public boolean accept(Food food) {
@@ -26,7 +22,7 @@ public class Shop implements StrategyStorage {
                 return true;
             }
             if (food != null && p2.test(food)) {
-                food.setDiscount(this.discount);
+                food.setDiscount(DISCOUNT);
                 return true;
             }
         return false;
@@ -34,11 +30,11 @@ public class Shop implements StrategyStorage {
 
     @Override
     public boolean add(Food food) {
-        if (food != null && accept(food)) {
-            this.shopStore.add(food);
-            return true;
+        if (food == null || !accept(food)) {
+            return false;
         }
-        return false;
+        this.shopStore.add(food);
+        return true;
     }
 
     @Override

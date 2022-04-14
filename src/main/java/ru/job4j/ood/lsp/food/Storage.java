@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  * Strategy.java
  * */
 
-public interface StrategyStorage {
+public interface Storage {
 
     boolean accept(Food food);
 

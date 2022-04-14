@@ -1,18 +1,15 @@
 package ru.job4j.ood.lsp.food;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 /*
  *
  *  Trash.java
  * */
-public class Trash implements StrategyStorage {
+public class Trash implements Storage {
 
-    private final List<Food> trashStore;
-
-    public Trash(List<Food> trashStore) {
-        this.trashStore = trashStore;
-    }
+    private final List<Food> trashStore = new ArrayList<>();
 
     @Override
     public boolean accept(Food food) {
@@ -22,11 +19,11 @@ public class Trash implements StrategyStorage {
 
     @Override
     public boolean add(Food food) {
-        if (food != null && accept(food)) {
-            this.trashStore.add(food);
-            return true;
+        if (food == null || !accept(food)) {
+            return false;
         }
-        return false;
+        this.trashStore.add(food);
+        return true;
     }
 
     @Override

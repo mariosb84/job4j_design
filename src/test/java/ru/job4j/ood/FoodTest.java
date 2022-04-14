@@ -51,7 +51,7 @@ public class FoodTest {
             List<Food> expected = List.of(new Fruit("banana",
                     LocalDate.of(22, 5, 4),
                     LocalDate.of(22, 4, 10), 5.0, 0.0));
-            List<Food> rsl= storageList.get(0).findAll();
+            List<Food> rsl = storageList.get(0).findAll();
             assertThat(rsl, is(expected));
         }
 
@@ -71,7 +71,7 @@ public class FoodTest {
                 new Meat("beef",
                         LocalDate.of(22, 4, 22),
                         LocalDate.of(22, 4, 7), 50.0, 0.0));
-        List<Food> rsl= storageList.get(1).findAll();
+        List<Food> rsl = storageList.get(1).findAll();
         assertThat(rsl, is(expected));
     }
 
@@ -89,7 +89,7 @@ public class FoodTest {
                         LocalDate.of(22, 4, 11),
                         LocalDate.of(22, 4, 3), 7.0, 0.0)
         );
-        List<Food> rsl= storageList.get(2).findAll();
+        List<Food> rsl = storageList.get(2).findAll();
         assertThat(rsl, is(expected));
     }
 

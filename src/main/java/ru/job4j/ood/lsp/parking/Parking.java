@@ -2,5 +2,5 @@ package ru.job4j.ood.lsp.parking;
 
 public interface Parking {
 
-    public double spaceAmount();
+    public boolean accept(Auto auto);
 }

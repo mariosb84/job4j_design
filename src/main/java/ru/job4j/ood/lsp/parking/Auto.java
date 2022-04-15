@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class Auto {
 
-    private double spaceAmount;
+    private int spaceAmount;
     private String name;
 
-    public Auto(double spaceAmount, String name) {
+    public Auto(int spaceAmount, String name) {
       this.spaceAmount = spaceAmount;
       this.name = name;
     }
 
-    public void setSpaceAmount(double spaceAmount) {
+    public void setSpaceAmount(int spaceAmount) {
         this.spaceAmount = spaceAmount;
     }
 
@@ -20,7 +20,7 @@ public class Auto {
         this.name = name;
     }
 
-    public double getSpaceAmount() {
+    public int getSpaceAmount() {
         return spaceAmount;
     }
 

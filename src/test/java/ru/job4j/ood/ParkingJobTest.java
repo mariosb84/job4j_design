@@ -11,11 +11,11 @@ import java.util.List;
 public class ParkingJobTest {
 
     List<Auto> list = List.of(
-            new Car(1, "1"),
-            new Car(1, "2"),
-            new Car(1, "3"),
-            new Car(1, "4"),
-            new Car(1, "5"),
+            new Car("1"),
+            new Car("2"),
+            new Car("3"),
+            new Car("4"),
+            new Car("5"),
             new Truck(2, "11"),
             new Truck(3, "22"),
             new Truck(4, "33"),

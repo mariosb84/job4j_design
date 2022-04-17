@@ -2,7 +2,7 @@ package ru.job4j.ood.lsp.parking;
 
 import java.util.Objects;
 
-public class Auto {
+public abstract class  Auto {
 
     private int spaceAmount;
     private String name;

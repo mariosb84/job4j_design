@@ -2,7 +2,9 @@ package ru.job4j.ood.lsp.parking;
 
 public class Car extends Auto  {
 
-    public Car(int spaceAmount, String name) {
-        super(spaceAmount, name);
+    public static final int SIZE = 1;
+
+    public Car(String name) {
+        super(SIZE, name);
     }
 }

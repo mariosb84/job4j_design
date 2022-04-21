@@ -22,8 +22,15 @@ public class SimpleMenu implements Menu {
     }
 
     private Optional<ItemInfo> findItem(String name) {
-        DFSIterator dfsIterator = new DFSIterator();
-    return dfsIterator.next();
+        ItemInfo itemInfo = null;
+        for (int i = 0; i < rootElements.size(); i++) {
+            DFSIterator dfsIterator = new DFSIterator();
+            itemInfo = dfsIterator.next();
+            if (itemInfo.menuItem.getName().equals(name)) {
+              break;
+            }
+        }
+     return Optional.ofNullable(itemInfo);
     }
 
     private static class SimpleMenuItem implements MenuItem {
@@ -90,7 +97,7 @@ public class SimpleMenu implements Menu {
 
     }
 
-    private class ItemInfo {
+    private static class ItemInfo {
 
         MenuItem menuItem;
         String number;
@@ -99,6 +106,18 @@ public class SimpleMenu implements Menu {
             this.menuItem = menuItem;
             this.number = number;
         }
+    }
+
+    public static void main(String[] args) {
+        final ActionDelegate STUB_ACTION = System.out::println;
+        Menu menu = new SimpleMenu();
+       // SimpleMenu simpleMenu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
+        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
+        menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
+        menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
+        System.out.println(((SimpleMenu) menu).findItem("Сходить в магазин"));
     }
 
 }

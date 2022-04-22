@@ -8,6 +8,8 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
+        rootElements.;
+        SimpleMenuItem simpleMenuItem = new SimpleMenuItem();
     return false;
     }
 
@@ -22,9 +24,9 @@ public class SimpleMenu implements Menu {
     }
 
     private Optional<ItemInfo> findItem(String name) {
+        DFSIterator dfsIterator = new DFSIterator();
         ItemInfo itemInfo = null;
         for (int i = 0; i < rootElements.size(); i++) {
-            DFSIterator dfsIterator = new DFSIterator();
             itemInfo = dfsIterator.next();
             if (itemInfo.menuItem.getName().equals(name)) {
               break;
@@ -97,7 +99,7 @@ public class SimpleMenu implements Menu {
 
     }
 
-    private static class ItemInfo {
+    private  class ItemInfo {
 
         MenuItem menuItem;
         String number;
@@ -110,14 +112,19 @@ public class SimpleMenu implements Menu {
 
     public static void main(String[] args) {
         final ActionDelegate STUB_ACTION = System.out::println;
-        Menu menu = new SimpleMenu();
-       // SimpleMenu simpleMenu = new SimpleMenu();
+        //Menu menu = new SimpleMenu();
+        SimpleMenu menu = new SimpleMenu();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
         menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
         menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
         menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
         menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
-        System.out.println(((SimpleMenu) menu).findItem("Сходить в магазин"));
+        menu.rootElements.forEach(MenuItem::getName);
+        for (MenuItem menuItem : menu.rootElements) {
+            System.out.println(menuItem);
+        }
+        System.out.println(menu.rootElements.size());
+        //System.out.println(((SimpleMenu) menu).findItem("Сходить в магазин"));
     }
 
 }

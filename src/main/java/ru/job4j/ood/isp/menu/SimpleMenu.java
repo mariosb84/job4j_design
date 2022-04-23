@@ -8,14 +8,24 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-        rootElements.;
-        SimpleMenuItem simpleMenuItem = new SimpleMenuItem();
+        Optional<ItemInfo> itemInfo = findItem(parentName);
+        if (itemInfo.isEmpty()) {
+            rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+            return true;
+        }
     return false;
     }
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-    return null;
+        Optional<ItemInfo> itemInfo = findItem(itemName);
+        if (itemInfo.isPresent()) {
+            MenuItem menuItem = itemInfo.get().menuItem;
+            String number = itemInfo.get().number;
+            MenuItemInfo menuItemInfo = new MenuItemInfo(menuItem, number);
+            return Optional.of(menuItemInfo);
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -24,15 +34,14 @@ public class SimpleMenu implements Menu {
     }
 
     private Optional<ItemInfo> findItem(String name) {
-        DFSIterator dfsIterator = new DFSIterator();
-        ItemInfo itemInfo = null;
-        for (int i = 0; i < rootElements.size(); i++) {
-            itemInfo = dfsIterator.next();
-            if (itemInfo.menuItem.getName().equals(name)) {
-              break;
+        ItemInfo itemInfo;
+        for (MenuItem menuItem : rootElements) {
+            if (menuItem.getName().equals(name)) {
+                 itemInfo = new DFSIterator().next();
+                return Optional.ofNullable(itemInfo);
             }
         }
-     return Optional.ofNullable(itemInfo);
+     return Optional.empty();
     }
 
     private static class SimpleMenuItem implements MenuItem {

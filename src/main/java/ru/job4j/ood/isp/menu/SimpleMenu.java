@@ -13,7 +13,7 @@ public class SimpleMenu implements Menu {
             return true;
         }
         if (parentName == ROOT) {
-            rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+            rootElements.add(new MenuItemInfo(parentName, actionDelegate));
             return true;
         }
     return false;
@@ -33,7 +33,9 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-    return null;
+       /* ArrayList<MenuItemInfo> list = new ArrayList<>();
+        return list.iterator();*/
+        return null;
     }
 
     private Optional<ItemInfo> findItem(String name) {
@@ -124,19 +126,20 @@ public class SimpleMenu implements Menu {
 
     public static void main(String[] args) {
         final ActionDelegate STUB_ACTION = System.out::println;
-        //Menu menu = new SimpleMenu();
-        SimpleMenu menu = new SimpleMenu();
+        Menu menu = new SimpleMenu();
+        //SimpleMenu menu = new SimpleMenu();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
-        menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
-        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
-        menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
-        menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
-        menu.rootElements.forEach(MenuItem::getName);
-        for (MenuItem menuItem : menu.rootElements) {
-            System.out.println(menuItem);
-        }
-        System.out.println(menu.rootElements.size());
+        //menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
+        //menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
+        //menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
+        //menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
+       // menu.rootElements.forEach(MenuItem::getName);
+        //for (MenuItem menuItem : menu.rootElements) {
+        //    System.out.println(menuItem);
+       // }
+       // System.out.println(menu.rootElements.size());
         //System.out.println(((SimpleMenu) menu).findItem("Сходить в магазин"));
+        System.out.println(menu.select("Сходить в магазин"));
     }
 
 }

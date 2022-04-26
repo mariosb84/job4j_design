@@ -12,6 +12,10 @@ public class SimpleMenu implements Menu {
             rootElements.add(new SimpleMenuItem(parentName, actionDelegate));
             return true;
         }
+        if (findItem(childName).isPresent()) {
+            rootElements.add(new SimpleMenuItem(parentName, actionDelegate));
+            return true;
+        }
         if (parentName == ROOT) {
             rootElements.add(new SimpleMenuItem(childName, actionDelegate));
             return true;
@@ -130,7 +134,7 @@ public class SimpleMenu implements Menu {
         //SimpleMenu menu = new SimpleMenu();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
         //menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
-        //menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
+        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
         //menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
         //menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
        // menu.rootElements.forEach(MenuItem::getName);
@@ -141,6 +145,7 @@ public class SimpleMenu implements Menu {
         //System.out.println(((SimpleMenu) menu).findItem("Сходить в магазин"));
         //System.out.println(menu.select("Сходить в магазин"));
         //System.out.println(menu.findItem("Сходить в магазин").get());
+        System.out.println(menu.rootElements.get(0));
         System.out.println(menu.rootElements.get(0).getName());
         System.out.println(menu.rootElements.get(0).getChildren());
     }

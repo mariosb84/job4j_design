@@ -8,16 +8,12 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-        if (findItem(childName).isEmpty()) {
-            rootElements.add(new SimpleMenuItem(parentName, actionDelegate));
-            return true;
-        }
-        if (findItem(childName).isPresent()) {
-            rootElements.add(new SimpleMenuItem(parentName, actionDelegate));
-            return true;
-        }
-        if (parentName == ROOT) {
+        if (findItem(parentName).isEmpty() && parentName == ROOT) {
             rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+            return true;
+        }
+        if (findItem(childName).isEmpty() && findItem(parentName).isPresent()) {
+            findItem(parentName).get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
             return true;
         }
     return false;
@@ -130,24 +126,14 @@ public class SimpleMenu implements Menu {
 
     public static void main(String[] args) {
         final ActionDelegate STUB_ACTION = System.out::println;
-        SimpleMenu menu = new SimpleMenu();
-        //SimpleMenu menu = new SimpleMenu();
+        Menu menu = new SimpleMenu();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
-        //menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
+        menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
         menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
-        //menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
-        //menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
-       // menu.rootElements.forEach(MenuItem::getName);
-        //for (MenuItem menuItem : menu.rootElements) {
-        //    System.out.println(menuItem);
-       // }
-       // System.out.println(menu.rootElements.size());
-        //System.out.println(((SimpleMenu) menu).findItem("Сходить в магазин"));
-        //System.out.println(menu.select("Сходить в магазин"));
-        //System.out.println(menu.findItem("Сходить в магазин").get());
-        System.out.println(menu.rootElements.get(0));
-        System.out.println(menu.rootElements.get(0).getName());
-        System.out.println(menu.rootElements.get(0).getChildren());
+        menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
+        menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
+        System.out.println(menu.select("Сходить в магазин").get().getName());
+        System.out.println(menu.select("Покормить собаку").get().getName());
     }
 
 }

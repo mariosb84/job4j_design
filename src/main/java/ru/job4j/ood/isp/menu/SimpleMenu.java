@@ -33,9 +33,21 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-       /* ArrayList<MenuItemInfo> list = new ArrayList<>();
-        return list.iterator();*/
-        return null;
+        return new Iterator<>() {
+
+            @Override
+            public boolean hasNext() {
+                return !rootElements.isEmpty();
+            }
+
+            @Override
+            public MenuItemInfo next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+              return (MenuItemInfo) rootElements.iterator().next();
+            }
+        };
     }
 
     private Optional<ItemInfo> findItem(String name) {

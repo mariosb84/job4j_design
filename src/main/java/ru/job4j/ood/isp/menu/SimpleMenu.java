@@ -8,12 +8,15 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-        if (findItem(parentName).isEmpty() && parentName == ROOT) {
+        if (findItem(parentName).isEmpty()
+                && parentName == ROOT) {
             rootElements.add(new SimpleMenuItem(childName, actionDelegate));
             return true;
         }
-        if (findItem(childName).isEmpty() && findItem(parentName).isPresent()) {
-            findItem(parentName).get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
+        if (findItem(childName).isEmpty()
+                && findItem(parentName).isPresent()) {
+            findItem(parentName).get().menuItem.getChildren().
+                    add(new SimpleMenuItem(childName, actionDelegate));
             return true;
         }
     return false;
@@ -33,11 +36,11 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
+        final DFSIterator iterator = new DFSIterator();
         return new Iterator<>() {
-
             @Override
             public boolean hasNext() {
-                return !rootElements.isEmpty();
+                return iterator.hasNext();
             }
 
             @Override
@@ -45,7 +48,8 @@ public class SimpleMenu implements Menu {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-              return (MenuItemInfo) rootElements.iterator().next();
+               var itemInfo = iterator.next();
+                return new MenuItemInfo(itemInfo.menuItem, itemInfo.number);
             }
         };
     }
@@ -134,18 +138,6 @@ public class SimpleMenu implements Menu {
             this.menuItem = menuItem;
             this.number = number;
         }
-    }
-
-    public static void main(String[] args) {
-        final ActionDelegate STUB_ACTION = System.out::println;
-        Menu menu = new SimpleMenu();
-        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
-        menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
-        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
-        menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
-        menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
-        System.out.println(menu.select("Сходить в магазин").get().getName());
-        System.out.println(menu.select("Покормить собаку").get().getName());
     }
 
 }

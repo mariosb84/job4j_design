@@ -1,6 +1,7 @@
 package ru.job4j.ood.isp.menu;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class SimpleMenu implements Menu {
 
@@ -8,14 +9,17 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-        if (findItem(parentName).isEmpty()
+        Optional<ItemInfo> findParent = findItem(parentName);
+        Optional<ItemInfo> findChild = findItem(childName);
+        if (findParent.isEmpty()
+                && findChild.isEmpty()
                 && parentName == ROOT) {
             rootElements.add(new SimpleMenuItem(childName, actionDelegate));
             return true;
         }
-        if (findItem(childName).isEmpty()
-                && findItem(parentName).isPresent()) {
-            findItem(parentName).get().menuItem.getChildren().
+        if (findChild.isEmpty()
+                && findParent.isPresent()) {
+            findParent.get().menuItem.getChildren().
                     add(new SimpleMenuItem(childName, actionDelegate));
             return true;
         }
@@ -32,7 +36,7 @@ public class SimpleMenu implements Menu {
             return Optional.of(menuItemInfo);
         }
         return Optional.empty();
-    }
+        }
 
     @Override
     public Iterator<MenuItemInfo> iterator() {

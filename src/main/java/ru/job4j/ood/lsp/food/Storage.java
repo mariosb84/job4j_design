@@ -15,4 +15,6 @@ public interface Storage {
 
     List<Food> findAll();
 
+    void clear();
+
 }

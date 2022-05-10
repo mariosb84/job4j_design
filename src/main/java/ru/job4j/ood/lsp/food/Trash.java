@@ -31,4 +31,9 @@ public class Trash implements Storage {
         return List.copyOf(this.trashStore);
     }
 
+    @Override
+    public void clear() {
+    this.trashStore.clear();
+    }
+
 }

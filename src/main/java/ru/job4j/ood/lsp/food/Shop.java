@@ -42,4 +42,9 @@ public class Shop implements Storage {
         return List.copyOf(this.shopStore);
        }
 
+    @Override
+    public void clear() {
+    this.shopStore.clear();
     }
+
+}

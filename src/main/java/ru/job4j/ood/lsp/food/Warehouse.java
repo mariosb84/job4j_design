@@ -31,4 +31,9 @@ public class Warehouse implements Storage {
         return List.copyOf(this.warehouseStore);
     }
 
+    @Override
+    public void clear() {
+    this.warehouseStore.clear();
+    }
+
 }

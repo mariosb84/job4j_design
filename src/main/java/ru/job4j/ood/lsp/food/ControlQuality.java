@@ -20,15 +20,11 @@ public class ControlQuality {
     }
 
     public void  resort() {
-        List<List<Food>> foods;
-            foods = this.storage.stream().map(Storage::findAll).
-                    collect(Collectors.toList());
+        List<Food> foods = storage.stream().
+                flatMap(s -> s.findAll().stream()).
+                collect(Collectors.toList());
         storage.forEach(Storage::clear);
-            for (List<Food> foodOne : foods) {
-                for (Food foodSecond : foodOne) {
-                    distribute(foodSecond);
-                   }
-               }
+        foods.forEach(this::distribute);
          }
 
     public static void main(String[] args) {

@@ -23,7 +23,7 @@ public class MaxMin  {
              if (predicate.test(comparator.compare(t, result))) {
                  result = t;
              }
-         }
+          }
          return result;
     }
 
